@@ -33,14 +33,13 @@ export class AuthEffects {
     ofType(AuthActionTypes.LOGIN),
     map((action: LogIn) => action.payload),
     switchMap(payload => {
-      return this.authService.login(payload.email, payload.password).pipe(
+      return this.authService.logIn(payload.email, payload.password).pipe(
         map(response => {
           console.log(response);
           if (response == "Username or password incorrect.") {
             return new LogInFailure("Username or password incorrect.");
           } else return new LogInSuccess(response);
-        }),
-        catchError(error => of(new LogInFailure(error)))
+        })
       );
     })
   );

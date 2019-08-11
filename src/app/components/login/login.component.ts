@@ -22,6 +22,6 @@ export class LoginComponent implements OnInit {
       email: this.user.email,
       password: this.user.password
     };
-    this.store.dispatch(new LogIn({ payload }));
+    this.store.dispatch(new LogIn(payload));
   }
 }

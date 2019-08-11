@@ -54,12 +54,7 @@ export function reducer(state = initialState, action: All): State {
       };
     }
     case AuthActionTypes.LOGIN_FAILURE: {
-      return {
-        ...state,
-        errorMessage: "Incorrect email and/or password."
-      };
-    }
-    case AuthActionTypes.LOGIN_FAILURE: {
+      console.log("Usao sam u reducer");
       return {
         ...state,
         errorMessage: "Incorrect email and/or password."

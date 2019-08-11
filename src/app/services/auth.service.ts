@@ -33,7 +33,7 @@ export class AuthService {
             obs.complete();
           } else {
             console.log("Javljam gresku");
-            // throwError("Username or password incorrect.");
+            throwError("Username or password incorrect.");
             obs.next("Username or password incorrect.");
             obs.complete();
           }
