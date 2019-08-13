@@ -4,12 +4,21 @@ import { SignupComponent } from "./components/signup/signup.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomepageComponent } from "./components/homepage/homepage.component";
 import { AdministratorComponent } from "./components/administrator/administrator.component";
+import { StudentComponent } from "./components/student/student.component";
+import { SignupStudComponent } from "./components/signup-stud/signup-stud.component";
+import { EditingComponent } from "./components/editing/editing.component";
+import { ChangeComponent } from "./components/change/change.component";
 
 const routes: Routes = [
   { path: "signup", component: SignupComponent },
   { path: "login", component: LoginComponent },
   { path: "", component: HomepageComponent },
-  { path: "administrator", component: AdministratorComponent }
+  { path: "administrator", component: AdministratorComponent },
+  { path: "student", component: StudentComponent },
+  { path: "signup-stud", component: SignupStudComponent },
+  { path: "editing", component: EditingComponent },
+  { path: "editing/:studentId", component: EditingComponent },
+  { path: "change/:?", component: ChangeComponent }
 ];
 
 @NgModule({

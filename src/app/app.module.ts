@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -13,8 +14,11 @@ import { AuthService } from "./services/auth.service";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { AuthEffects } from "./store/effects/auth.effects";
-import { reducers } from "./store/state/app.states";
+import { reducers } from "./store/index";
 import { HttpClientModule } from "@angular/common/http";
+import { SignupStudComponent } from "./components/signup-stud/signup-stud.component";
+import { EditingComponent } from "./components/editing/editing.component";
+import { ChangeComponent } from "./components/change/change.component";
 
 @NgModule({
   declarations: [
@@ -23,14 +27,20 @@ import { HttpClientModule } from "@angular/common/http";
     AdministratorComponent,
     StudentComponent,
     SignupComponent,
-    HomepageComponent
+    HomepageComponent,
+    SignupStudComponent,
+    EditingComponent,
+    ChangeComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers, {}),
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 5
+    }),
     EffectsModule.forRoot([AuthEffects])
   ],
   providers: [AuthService],

@@ -1,0 +1,29 @@
+<p>editing works!</p>
+
+<div *ngIf="grades">
+    <div>
+        <h3>Serbian Language: {{grades.serbianLanguage}}</h3>
+        <!-- <input [(ngModel)]="serbian" name="serbian" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
+        <input type="text" placeholder="Write new grade" #serbian required/>
+        <button (click)="onChange('serbian', serbian.value)">Change grades</button>
+    </div>
+    <div>
+        <h3>English Language: {{grades.englishLanguage}}</h3>
+        <!-- <input [(ngModel)]="english" name="english" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
+        <input type="text" placeholder="Write new grade" #english required />
+        <button (click)="onChange('english', english.value)">Change grades</button>
+    </div>
+    <div>
+        <h3>Math: {{grades.math}}</h3>
+        <!-- <input [(ngModel)]="math" name="math" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
+        <input type="text" placeholder="Write new grade" #math required />
+        <button (click)="onChange('math', math.value)">Change grades</button>
+    </div>
+    <div>
+        <h3>Biology: {{grades.biology}}</h3>
+        <!-- <input [(ngModel)]="biology" name="biology" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
+        <input type="text" placeholder="Write new grade" #biology required />
+        <button (click)="onChange('biology', biology.value)">Change grades</button>
+    </div>
+    <button (click)="onClick()">Back</button>
+</div>

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Action } from "@ngrx/store";
 import { Router } from "@angular/router";
 import { Actions, Effect, ofType } from "@ngrx/effects";
-import { Observable, of } from "rxjs";
+import { Observable, of, Subscriber } from "rxjs";
 import { switchMap, mergeMap, map, tap, catchError } from "rxjs/operators";
 
 import { AuthService } from "../../services/auth.service";
@@ -14,13 +14,17 @@ import {
   SignUp,
   SignUpSuccess,
   SignUpFailure,
-  LogOut
+  LogOut,
+  SignUpStudent,
+  SignUpStudSuccess
 } from "../actions/auth.actions";
 import { User } from "src/app/models/user";
 import { HttpClient } from "@angular/common/http";
+import { Grades } from "src/app/models/grades";
 
 @Injectable()
 export class AuthEffects {
+  public grades: Grades = new Grades();
   constructor(
     private actions: Actions,
     private authService: AuthService,
@@ -48,8 +52,10 @@ export class AuthEffects {
   LogInSuccess: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
     tap(user => {
-      localStorage.setItem("token", user.payload.token);
-      this.router.navigate(["/administrator"]);
+      localStorage.setItem("token", user.payload.id);
+      if (user.payload.role == "administrator")
+        this.router.navigate(["/administrator"]);
+      else this.router.navigate(["/student"]);
     })
   );
 
@@ -64,5 +70,72 @@ export class AuthEffects {
     tap(user => {
       localStorage.removeItem("token");
     })
+  );
+
+  @Effect()
+  SignUpStudent: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUPSTUDENT),
+    map((action: SignUpStudent) => action.payload),
+    switchMap(payload => {
+      console.log("Effects");
+      console.log(payload.name);
+      return this.authService.signUpStudent(payload).pipe(
+        map(user => {
+          this.grades.math = "";
+          this.grades.biology = "";
+          this.grades.englishLanguage = "";
+          this.grades.serbianLanguage = "";
+          this.grades.studentId = user.id;
+
+          this.authService.addSubjectField(this.grades);
+          return new SignUpStudSuccess({});
+        }),
+        catchError(error => {
+          return of(new SignUpFailure({ error: error }));
+        })
+      );
+    })
+  );
+
+  @Effect()
+  SignUp: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUP),
+    map((action: SignUp) => action.payload),
+    switchMap(payload => {
+      console.log("Effects");
+      console.log(payload.name);
+      return this.authService.signUpStudent(payload).pipe(
+        map(user => {
+          console.log(user);
+          return new SignUpSuccess({});
+        }),
+        catchError(error => {
+          return of(new SignUpFailure({ error: error }));
+        })
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  SignUpSuccess: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUP_SUCCESS),
+    tap(action => {
+      console.log(action);
+      localStorage.setItem("token", action.payload.id);
+      this.router.navigate(["/administrator"]);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  SignUpStudSuccess: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUPSTUD_SUCCESS),
+    tap(user => {
+      this.router.navigateByUrl("/administrator");
+    })
+  );
+
+  @Effect({ dispatch: false })
+  SignUpFailure: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUP_FAILURE)
   );
 }

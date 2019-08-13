@@ -21,13 +21,13 @@ import { createFeatureSelector } from "@ngrx/store";
 //   // errorMessage: null
 // };
 
-export interface State {
+export interface AuthState {
   isAuthenticated: boolean;
   user: User | null;
   errorMessage: string | null;
 }
 
-export const initialState: State = {
+export const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
   errorMessage: null
@@ -40,16 +40,13 @@ export const initialState: State = {
 //   initialUsersState
 // );
 
-export function reducer(state = initialState, action: All): State {
+export function authReducer(state = initialState, action: All): AuthState {
   switch (action.type) {
     case AuthActionTypes.LOGIN_SUCCESS: {
       return {
         ...state,
         isAuthenticated: true,
-        user: {
-          token: action.payload.token,
-          email: action.payload.email
-        },
+        user: action.payload.user,
         errorMessage: null
       };
     }
@@ -64,12 +61,12 @@ export function reducer(state = initialState, action: All): State {
       return {
         ...state,
         isAuthenticated: true,
-        user: {
-          token: action.payload.token,
-          email: action.payload.email
-        },
+        user: action.payload.user,
         errorMessage: null
       };
+    }
+    case AuthActionTypes.SIGNUPSTUD_SUCCESS: {
+      return state;
     }
     case AuthActionTypes.SIGNUP_FAILURE: {
       return {

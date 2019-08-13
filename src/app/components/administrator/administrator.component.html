@@ -1,2 +1,33 @@
-<p>administrator works!</p>
-<input type="button" class="btn btnPrimary" value="Log out" (click)="onSubmit()">
+<div class="administrator">
+    <div *ngIf="authService.user; then authenticated">
+        <!-- template will replace this div -->
+    </div>
+
+    <!-- User logged in -->
+    <ng-template #authenticated>
+        <div *ngIf="authService.user as user">
+            <h1>Welcome, {{ user.name }} {{ user.surname }} </h1>
+
+            <p>email: {{ user.email }} </p>
+            <p>You are successfully logged in!</p>
+            <input type="button" class="btn btnPrimary" value="Log out" (click)="onSubmit()">
+        </div>
+    </ng-template>
+
+    <div class="studentsData">
+        <h1>Students data</h1>
+        <div *ngFor="let user of students$ | async">
+            <div class="row">
+                <h4>{{user.name}}</h4>
+                <div>
+                    <a routerLink="/editing/{{user.id}}"><button>Edit</button></a>
+                </div>
+                <!-- <button class="edit" (click)="onEdit({{user.id}})">Edit</button> -->
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button (click)="logNewStudent()">Log a new student</button>
+    </div>
+</div>

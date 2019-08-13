@@ -1,1 +1,16 @@
-<p>student works!</p>
+<div class="student">
+
+    <div *ngIf="authService.user as user">
+        <h2>
+            STUDENT: {{user.name}} {{user.surname}}
+        </h2>
+        <div *ngIf="grades">
+            <h3>ID studenta u bazi: {{grades.studentId}} </h3>
+            <h3>Serbian Language: {{grades.serbianLanguage}}</h3>
+            <h3>English Language: {{grades.englishLanguage}}</h3>
+            <h3>Math: {{grades.math}}</h3>
+            <h3>Biology: {{grades.biology}}</h3>
+        </div>
+        <button (click)="signOut()">Logout</button>
+    </div>
+</div>
