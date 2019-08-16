@@ -41,7 +41,7 @@ import { SubjectService } from "./services/subject.service";
     HttpClientModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
-      maxAge: 5
+      maxAge: 20
     }),
     EffectsModule.forRoot([AuthEffects, SubjectsEffects, StudentsEffects])
   ],

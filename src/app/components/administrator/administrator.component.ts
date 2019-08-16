@@ -10,8 +10,9 @@ import { Grades } from "src/app/models/grades";
 import { HttpClient } from "@angular/common/http";
 import { environment as env } from "../../../environments/environment";
 import { StudentsService } from "src/app/services/students.service";
-import { Fetch } from "src/app/store/actions/students.actions";
+import { Fetch, Remove } from "src/app/store/actions/students.actions";
 import * as fromStudent from "../../store/reducers/students.reducer";
+import { Delete } from "src/app/store/actions/subjects.actions";
 
 @Component({
   selector: "app-administrator",
@@ -67,5 +68,12 @@ export class AdministratorComponent implements OnInit {
 
   onDelete(id: number) {
     console.log("Delete id: " + id);
+    // this.studService
+    //   .remove(id)
+    //   .subscribe(() => console.log("U onDelete prelazim na fetch"));
+    this.store.dispatch(new Remove(id));
+    this.store.dispatch(new Delete(id));
+    this.store.dispatch(new Fetch());
+    this.students$ = this.store.select(fromStudent.selectAllStudents);
   }
 }

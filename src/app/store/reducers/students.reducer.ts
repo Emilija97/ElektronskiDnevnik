@@ -24,6 +24,10 @@ export function studentsReducer(
       console.log("Iz reducera " + action.payload);
       return studentAdapter.addAll(action.payload, state);
     }
+    case StudActionTypes.REMOVE_SUCCESS: {
+      console.log("Usao sam u reducer za remove");
+      return studentAdapter.removeOne(action.payload, state);
+    }
     default:
       return state;
   }

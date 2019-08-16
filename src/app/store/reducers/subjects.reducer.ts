@@ -31,6 +31,12 @@ export function subjectReducer(
     case SubjectActionTypes.FETCH_SUBJECTS_FAILURE: {
       return state;
     }
+    case SubjectActionTypes.DELETE_SUCCESS:
+      return {
+        ...state,
+        errorMessage: null,
+        grades: null
+      };
     default:
       return state;
   }

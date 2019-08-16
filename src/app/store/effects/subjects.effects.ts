@@ -10,7 +10,10 @@ import {
   FetchSubjects,
   SubjectActionTypes,
   FetchSubjectsSuccess,
-  FetchSubjectsFailure
+  FetchSubjectsFailure,
+  Delete,
+  DeleteSuccess,
+  DeleteFailure
 } from "../actions/subjects.actions";
 import { User } from "src/app/models/user";
 import { HttpClient } from "@angular/common/http";
@@ -56,5 +59,31 @@ export class SubjectsEffects {
   @Effect({ dispatch: false })
   FetchSubjectsFailure: Observable<any> = this.actions.pipe(
     ofType(SubjectActionTypes.FETCH_SUBJECTS_FAILURE)
+  );
+
+  @Effect()
+  Delete: Observable<any> = this.actions.pipe(
+    ofType(SubjectActionTypes.DELETE),
+    map((action: Delete) => action.payload),
+    switchMap(payload => {
+      return this.subService.deleteGrade(payload).pipe(
+        map(response => {
+          console.log("Iz subject effects: " + response);
+          if (response == "Grade error.") {
+            return new DeleteFailure("Grade error.");
+          } else return new DeleteSuccess(response.id);
+        })
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  DeleteSuccess: Observable<any> = this.actions.pipe(
+    ofType(SubjectActionTypes.DELETE_SUCCESS)
+  );
+
+  @Effect({ dispatch: false })
+  DeleteFailure: Observable<any> = this.actions.pipe(
+    ofType(SubjectActionTypes.DELETE_FAILURE)
   );
 }

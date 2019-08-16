@@ -4,7 +4,10 @@ export enum SubjectActionTypes {
   FETCH_SUBJECTS = "[Subject] Fetch subjects",
   FETCH_SUBJECT = "[Subject] Fetch subject",
   FETCH_SUBJECTS_SUCCESS = "[Subject] Fetch subjects success",
-  FETCH_SUBJECTS_FAILURE = "[Subject] Fetch subjects failure"
+  FETCH_SUBJECTS_FAILURE = "[Subject] Fetch subjects failure",
+  DELETE = "[Subject] Fetch subjects failure",
+  DELETE_SUCCESS = "[Subject] Fetch subjects failure",
+  DELETE_FAILURE = "[Subject] Fetch subjects failure"
 }
 
 export class FetchSubjects implements Action {
@@ -27,8 +30,29 @@ export class FetchSubjectsFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class Delete implements Action {
+  readonly type = SubjectActionTypes.DELETE;
+
+  constructor(public payload: number) {}
+}
+
+export class DeleteSuccess implements Action {
+  readonly type = SubjectActionTypes.DELETE_SUCCESS;
+
+  constructor(public payload: number) {}
+}
+
+export class DeleteFailure implements Action {
+  readonly type = SubjectActionTypes.DELETE_FAILURE;
+
+  constructor(public payload: string) {}
+}
+
 export type All =
   | FetchSubject
   | FetchSubjects
   | FetchSubjectsSuccess
-  | FetchSubjectsFailure;
+  | FetchSubjectsFailure
+  | Delete
+  | DeleteSuccess
+  | DeleteFailure;

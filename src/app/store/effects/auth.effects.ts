@@ -65,7 +65,7 @@ export class AuthEffects {
   );
 
   @Effect({ dispatch: false })
-  public LogOut: Observable<any> = this.actions.pipe(
+  LogOut: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGOUT),
     tap(user => {
       localStorage.removeItem("token");
