@@ -42,20 +42,21 @@ export class AuthService {
     });
   }
 
-  getAllStudents(): Observable<User[]> {
-    return this.http.get<User[]>(`${env.url}/users?role=student`);
-  }
+  //Napravljen je novi servis
+  // getAllStudents(): Observable<User[]> {
+  //   return this.http.get<User[]>(`${env.url}/users?role=student`);
+  // }
 
-  signUpStudent(student: User): Observable<any> {
+  signUp(user: User): Observable<any> {
     console.log("Usao sam u service");
     return Observable.create((obs: Subscriber<any>) => {
       this.http
-        .get<User[]>(`${env.url}/users?email=${student.email}`)
+        .get<User[]>(`${env.url}/users?email=${user.email}`)
         .subscribe(res => {
           if (!res || res.length == 0) {
-            this.http.post<User>(`${env.url}/users`, student).subscribe(res => {
-              if (student.role == "administrator") {
-                this.user = student;
+            this.http.post<User>(`${env.url}/users`, user).subscribe(res => {
+              if (user.role == "administrator") {
+                this.user = user;
               }
               obs.next(res);
               obs.complete();

@@ -18,7 +18,7 @@ import { Grades } from "src/app/models/grades";
 import { SubjectService } from "src/app/services/subject.service";
 
 @Injectable()
-export class AuthEffects {
+export class SubjectsEffects {
   public grades: Grades = new Grades();
   constructor(
     private actions: Actions,

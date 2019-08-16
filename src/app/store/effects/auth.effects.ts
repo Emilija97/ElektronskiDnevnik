@@ -79,7 +79,7 @@ export class AuthEffects {
     switchMap(payload => {
       console.log("Effects");
       console.log(payload.name);
-      return this.authService.signUpStudent(payload).pipe(
+      return this.authService.signUp(payload).pipe(
         map(user => {
           this.grades.math = "";
           this.grades.biology = "";
@@ -104,7 +104,7 @@ export class AuthEffects {
     switchMap(payload => {
       console.log("Effects");
       console.log(payload.name);
-      return this.authService.signUpStudent(payload).pipe(
+      return this.authService.signUp(payload).pipe(
         map(user => {
           console.log(user);
           return new SignUpSuccess({});

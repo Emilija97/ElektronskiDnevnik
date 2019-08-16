@@ -103,6 +103,30 @@
       "surname": "Tomovic",
       "role": "administrator",
       "id": 13
+    },
+    {
+      "email": "test1@gmail.com",
+      "password": "123456",
+      "name": "Janko",
+      "surname": "Tomovic",
+      "role": "administrator",
+      "id": 14
+    },
+    {
+      "email": "djole@gmail.com",
+      "password": "123456",
+      "name": "Djole",
+      "surname": "Djokic",
+      "role": "student",
+      "id": 15
+    },
+    {
+      "email": "asd@gmail.com",
+      "password": "123456",
+      "name": "Asd",
+      "surname": "Fgh",
+      "role": "student",
+      "id": 16
     }
   ],
   "grades": [
@@ -185,6 +209,22 @@
       "serbianLanguage": "5",
       "studentId": 11,
       "id": 10
+    },
+    {
+      "math": "3",
+      "biology": "4",
+      "englishLanguage": "4, 5",
+      "serbianLanguage": "5",
+      "studentId": 15,
+      "id": 11
+    },
+    {
+      "math": "",
+      "biology": "",
+      "englishLanguage": "4",
+      "serbianLanguage": "5",
+      "studentId": 16,
+      "id": 12
     }
   ]
 }

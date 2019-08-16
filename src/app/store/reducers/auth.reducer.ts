@@ -3,24 +3,6 @@ import { AuthActionTypes, All } from "../actions/auth.actions";
 import { EntityState, createEntityAdapter } from "@ngrx/entity";
 import { createFeatureSelector } from "@ngrx/store";
 
-// export interface StoreState {
-//   courses: UsersState;
-// }
-
-// export interface UsersState {
-//   // isAuthenticated: boolean;
-//   ids: number[];
-//   entities: { [key: number]: User };
-//   //  errorMessage: string | null;
-// }
-
-// const initialUsersState: UsersState = {
-//   ids: [],
-//   entities: {}
-//   // isAuthenticated: false,
-//   // errorMessage: null
-// };
-
 export interface AuthState {
   isAuthenticated: boolean;
   user: User | null;
@@ -32,13 +14,6 @@ export const initialState: AuthState = {
   user: null,
   errorMessage: null
 };
-
-// //Entity adapter
-// export const studentAdapter = createEntityAdapter<User>();
-// export interface State extends EntityState<User> {}
-// export const initialState: State = studentAdapter.getInitialState(
-//   initialUsersState
-// );
 
 export function authReducer(state = initialState, action: All): AuthState {
   switch (action.type) {
@@ -82,12 +57,3 @@ export function authReducer(state = initialState, action: All): AuthState {
     }
   }
 }
-
-// export const getUserState = createFeatureSelector<State>("user");
-
-// export const {
-//   selectIds,
-//   selectEntities,
-//   selectAll,
-//   selectTotal
-// } = studentAdapter.getSelectors(getUserState);

@@ -7,7 +7,6 @@ import { AdministratorComponent } from "./components/administrator/administrator
 import { StudentComponent } from "./components/student/student.component";
 import { SignupStudComponent } from "./components/signup-stud/signup-stud.component";
 import { EditingComponent } from "./components/editing/editing.component";
-import { ChangeComponent } from "./components/change/change.component";
 
 const routes: Routes = [
   { path: "signup", component: SignupComponent },
@@ -17,8 +16,7 @@ const routes: Routes = [
   { path: "student", component: StudentComponent },
   { path: "signup-stud", component: SignupStudComponent },
   { path: "editing", component: EditingComponent },
-  { path: "editing/:studentId", component: EditingComponent },
-  { path: "change/:?", component: ChangeComponent }
+  { path: "editing/:studentId", component: EditingComponent }
 ];
 
 @NgModule({

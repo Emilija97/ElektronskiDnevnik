@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/state/app.states";
 import { LogOut } from "src/app/store/actions/auth.actions";
@@ -8,7 +8,11 @@ import { Observable } from "rxjs";
 import { User } from "src/app/models/user";
 import { Grades } from "src/app/models/grades";
 import { HttpClient } from "@angular/common/http";
-const url = "http://localhost:3000";
+import { environment as env } from "../../../environments/environment";
+import { StudentsService } from "src/app/services/students.service";
+import { Fetch } from "src/app/store/actions/students.actions";
+import * as fromStudent from "../../store/reducers/students.reducer";
+
 @Component({
   selector: "app-administrator",
   templateUrl: "./administrator.component.html",
@@ -22,12 +26,16 @@ export class AdministratorComponent implements OnInit {
     private store: Store<AppState>,
     private router: Router,
     public authService: AuthService,
+    public studService: StudentsService,
     private http: HttpClient
   ) {}
 
   ngOnInit() {
     console.log(this.authService.user.name);
-    this.students$ = this.authService.getAllStudents();
+    this.store.dispatch(new Fetch());
+    this.students$ = this.store.select(fromStudent.selectAllStudents);
+    console.log(this.students$[0]);
+    // this.students$ = this.studService.get();
   }
 
   onSubmit() {
@@ -46,7 +54,7 @@ export class AdministratorComponent implements OnInit {
     this.grades.englishLanguage = "";
     this.grades.serbianLanguage = "";
     this.grades.studentId = 10;
-    this.http.post<Grades>(`${url}/grades?`, this.grades).subscribe(
+    this.http.post<Grades>(`${env.url}/grades?`, this.grades).subscribe(
       data => {
         console.log("Post request is successful ", data);
       },
@@ -55,5 +63,9 @@ export class AdministratorComponent implements OnInit {
       }
     );
     console.log("Zavrsio sam upis ocena" + this.grades);
+  }
+
+  onDelete(id: number) {
+    console.log("Delete id: " + id);
   }
 }

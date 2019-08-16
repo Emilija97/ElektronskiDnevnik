@@ -30,7 +30,7 @@ export class SubjectService {
     });
   }
 
-  changeGrade(grades: Grades): Observable<any> {
+  changeGrade(grades: Partial<Grades>): Observable<any> {
     return this.http.patch<Grades>(`${env.url}/grades/${grades.id}`, grades);
   }
 }

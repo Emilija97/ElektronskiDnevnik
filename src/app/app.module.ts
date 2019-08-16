@@ -18,7 +18,10 @@ import { reducers } from "./store/index";
 import { HttpClientModule } from "@angular/common/http";
 import { SignupStudComponent } from "./components/signup-stud/signup-stud.component";
 import { EditingComponent } from "./components/editing/editing.component";
-import { ChangeComponent } from "./components/change/change.component";
+import { SubjectsEffects } from "./store/effects/subjects.effects";
+import { StudentsEffects } from "./store/effects/students.effects";
+import { StudentsService } from "./services/students.service";
+import { SubjectService } from "./services/subject.service";
 
 @NgModule({
   declarations: [
@@ -29,8 +32,7 @@ import { ChangeComponent } from "./components/change/change.component";
     SignupComponent,
     HomepageComponent,
     SignupStudComponent,
-    EditingComponent,
-    ChangeComponent
+    EditingComponent
   ],
   imports: [
     FormsModule,
@@ -41,9 +43,9 @@ import { ChangeComponent } from "./components/change/change.component";
     StoreDevtoolsModule.instrument({
       maxAge: 5
     }),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects, SubjectsEffects, StudentsEffects])
   ],
-  providers: [AuthService],
+  providers: [AuthService, StudentsService, SubjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
