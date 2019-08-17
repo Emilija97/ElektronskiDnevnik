@@ -23,6 +23,8 @@ import { StudentsEffects } from "./store/effects/students.effects";
 import { StudentsService } from "./services/students.service";
 import { SubjectService } from "./services/subject.service";
 
+import { MDBBootstrapModule } from "angular-bootstrap-md";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +41,7 @@ import { SubjectService } from "./services/subject.service";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MDBBootstrapModule.forRoot(),
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 20

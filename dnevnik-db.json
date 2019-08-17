@@ -9,6 +9,14 @@
       "password": "123456"
     },
     {
+      "id": 1,
+      "email": "ilija@gmail.com",
+      "name": "Ilija",
+      "surname": "Ilijic",
+      "role": "student",
+      "password": "123456"
+    },
+    {
       "id": 2,
       "email": "mika@gmail.com",
       "name": "Mika",
@@ -33,12 +41,12 @@
       "password": "123456"
     },
     {
-      "id": 5,
-      "email": "zika@gmail.com",
-      "name": "Zika",
-      "surname": "Zikic",
+      "email": "ana@gmail.com",
+      "password": "123456",
+      "name": "Ana",
+      "surname": "Anic",
       "role": "student",
-      "password": "123456"
+      "id": 6
     },
     {
       "email": "pavle@gmail.com",
@@ -55,6 +63,14 @@
       "surname": "Kostic",
       "role": "student",
       "id": 8
+    },
+    {
+      "email": "asd@gmail.com",
+      "password": "123456",
+      "name": "Asd",
+      "surname": "Fgh",
+      "role": "student",
+      "id": 9
     },
     {
       "email": "jovo@gmail.com",
@@ -107,6 +123,14 @@
   ],
   "grades": [
     {
+      "id": 0,
+      "serbianLanguage": "5",
+      "englishLanguage": "5",
+      "math": "5, 4",
+      "biology": "5, 3",
+      "studentId": 1
+    },
+    {
       "id": 1,
       "serbianLanguage": "5, 3, 4",
       "englishLanguage": "4, 5",
@@ -131,12 +155,12 @@
       "studentId": 4
     },
     {
-      "id": 4,
+      "id": 5,
       "serbianLanguage": "5",
       "englishLanguage": "5",
       "math": "5",
       "biology": "5",
-      "studentId": 5
+      "studentId": 6
     },
     {
       "id": 6,
@@ -153,6 +177,14 @@
       "math": "5",
       "biology": "5",
       "studentId": 8
+    },
+    {
+      "math": "",
+      "biology": "",
+      "englishLanguage": "4",
+      "serbianLanguage": "5",
+      "studentId": 9,
+      "id": 8
     },
     {
       "math": "",

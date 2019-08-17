@@ -10,7 +10,7 @@
 
             <p>email: {{ user.email }} </p>
             <p>You are successfully logged in!</p>
-            <input type="button" class="btn btnPrimary" value="Log out" (click)="onSubmit()">
+            <input type="button" class="btn btnPrimary navigation" value="Log out" (click)="onSubmit()">
         </div>
     </ng-template>
 
@@ -18,16 +18,23 @@
         <h1>Students data</h1>
         <div *ngFor="let user of students$ | async">
             <div class="row">
-                <h4>{{user.name}}</h4>
-                <div>
-                    <a routerLink="/editing/{{user.id}}"><button>Edit</button></a>
+                <div class="student">
+                    <h3>{{user.name}} {{user.surname}}</h3>
                 </div>
-                <input type="button" class="btn btnPrimary" value="Delete" (click)="onDelete(user.id)">
+                <div class="dugmad">
+                    <div>
+                        <a routerLink="/editing/{{user.id}}"><button class= "edit">Edit</button></a>
+                    </div>
+                    <div>
+                        <button class="delete" (click)="onDelete(user.id)">Delete</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 
     <div>
-        <button (click)="logNewStudent()">Log a new student</button>
+        <button (click)="logNewStudent()" class="navigation">Log a new student</button>
     </div>
 </div>

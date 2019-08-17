@@ -61,7 +61,7 @@ export class StudentsEffects {
       return this.studService.remove(payload).pipe(
         map(user => {
           if (user) {
-            console.log(user);
+            console.log("Uspesno brisanje user-a: " + user.name);
             // this.subService
             //   .deleteGrade(user.id)
             //   .subscribe(() => console.log("Nista ne javljam"));

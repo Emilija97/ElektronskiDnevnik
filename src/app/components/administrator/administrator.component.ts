@@ -36,7 +36,6 @@ export class AdministratorComponent implements OnInit {
     this.store.dispatch(new Fetch());
     this.students$ = this.store.select(fromStudent.selectAllStudents);
     console.log(this.students$[0]);
-    // this.students$ = this.studService.get();
   }
 
   onSubmit() {
@@ -68,9 +67,6 @@ export class AdministratorComponent implements OnInit {
 
   onDelete(id: number) {
     console.log("Delete id: " + id);
-    // this.studService
-    //   .remove(id)
-    //   .subscribe(() => console.log("U onDelete prelazim na fetch"));
     this.store.dispatch(new Remove(id));
     this.store.dispatch(new Delete(id));
     this.store.dispatch(new Fetch());
