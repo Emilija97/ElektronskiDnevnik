@@ -6,11 +6,11 @@
     <!-- User logged in -->
     <ng-template #authenticated>
         <div *ngIf="authService.user as user">
-            <h1>Welcome, {{ user.name }} {{ user.surname }} </h1>
+            <h1>Welcome, {{ user.name }} {{ user.surname }}</h1>
 
-            <p>email: {{ user.email }} </p>
+            <p>email: {{ user.email }}</p>
             <p>You are successfully logged in!</p>
-            <input type="button" class="btn btnPrimary navigation" value="Log out" (click)="onSubmit()">
+            <input type="button" class="btn btnPrimary navigation" value="Log out" (click)="onSubmit()" />
         </div>
     </ng-template>
 
@@ -19,22 +19,25 @@
         <div *ngFor="let user of students$ | async">
             <div class="row">
                 <div class="student">
-                    <h3>{{user.name}} {{user.surname}}</h3>
+                    <h3>{{ user.name }} {{ user.surname }}</h3>
                 </div>
                 <div class="dugmad">
                     <div>
-                        <a routerLink="/editing/{{user.id}}"><button class= "edit">Edit</button></a>
-                    </div>
-                    <div>
-                        <button class="delete" (click)="onDelete(user.id)">Delete</button>
-                    </div>
-                </div>
-
-            </div>
+                        <a routerLink="/editing/{{ user.id }}"><button class="edit">Edit</button></a
+            >
+          </div>
+          <div>
+            <button class="delete" (click)="onDelete(user.id)">Delete</button>
+          </div>
         </div>
+      </div>
+      <hr />
     </div>
+  </div>
 
-    <div>
-        <button (click)="logNewStudent()" class="navigation">Log a new student</button>
-    </div>
+  <div>
+    <button (click)="logNewStudent()" class="navigation">
+      Log a new student
+    </button>
+  </div>
 </div>

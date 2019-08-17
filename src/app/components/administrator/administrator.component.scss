@@ -16,9 +16,10 @@
 }
 
 .dugmad {
-    flex-direction: column;
+    flex-direction: row;
     display: flex;
-    align-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .edit,
@@ -28,11 +29,11 @@
     font-size: 18px;
     margin-top: 2px;
     margin-bottom: 2px;
-    font-family: 'Times New Roman';
+    font-family: "Times New Roman";
     padding-left: 5px;
-    color: #3E1061;
-    border: 2px solid #3E1061;
+    color: #3e1061;
+    border: 2px solid #3e1061;
     border-radius: 7px;
-    background-image: linear-gradient(to right, #3570C2, #ADD3FF, #BDD8FF);
+    background-image: linear-gradient(to right, #3570c2, #add3ff, #bdd8ff);
     font-weight: bold;
 }
