@@ -42,30 +42,23 @@ export class AuthService {
     });
   }
 
-  //Napravljen je novi servis
-  // getAllStudents(): Observable<User[]> {
-  //   return this.http.get<User[]>(`${env.url}/users?role=student`);
-  // }
-
   signUp(user: User): Observable<any> {
     console.log("Usao sam u service");
     return Observable.create((obs: Subscriber<any>) => {
-      this.http
-        .get<User[]>(`${env.url}/users?email=${user.email}`)
-        .subscribe(res => {
-          if (!res || res.length == 0) {
-            this.http.post<User>(`${env.url}/users`, user).subscribe(res => {
-              if (user.role == "administrator") {
-                this.user = user;
-              }
-              obs.next(res);
-              obs.complete();
-            });
-          } else {
-            obs.next("Username already taken.");
+      this.http.get<User[]>(`${env.url}/users?email=${user.email}`).subscribe(res => {
+        if (!res || res.length == 0) {
+          this.http.post<User>(`${env.url}/users`, user).subscribe(res => {
+            if (user.role == "administrator") {
+              this.user = user;
+            }
+            obs.next(res);
             obs.complete();
-          }
-        });
+          });
+        } else {
+          obs.next("Username already taken.");
+          obs.complete();
+        }
+      });
     });
   }
 

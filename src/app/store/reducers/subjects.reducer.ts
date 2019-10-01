@@ -11,10 +11,7 @@ export const initialState: SubjectState = {
   errorMessage: null
 };
 
-export function subjectReducer(
-  state = initialState,
-  action: All
-): SubjectState {
+export function subjectReducer(state = initialState, action: All): SubjectState {
   switch (action.type) {
     case SubjectActionTypes.FETCH_SUBJECTS_SUCCESS: {
       return {
@@ -31,12 +28,14 @@ export function subjectReducer(
     case SubjectActionTypes.FETCH_SUBJECTS_FAILURE: {
       return state;
     }
-    case SubjectActionTypes.DELETE_SUCCESS:
+    case SubjectActionTypes.DELETE_SUCCESS: {
+      console.log("Usao sam u reducer za subject");
       return {
         ...state,
         errorMessage: null,
         grades: null
       };
+    }
     default:
       return state;
   }

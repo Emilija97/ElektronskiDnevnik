@@ -11,18 +11,34 @@ export interface StudentState extends EntityState<User> {
 const defaultData = {
   students: null
 };
-export const initialState: StudentState = studentAdapter.getInitialState(
-  defaultData
-);
+export const initialState: StudentState = studentAdapter.getInitialState(defaultData);
 
-export function studentsReducer(
-  state: StudentState = initialState,
-  action: Actions
-) {
+export function studentsReducer(state: StudentState = initialState, action: Actions) {
   switch (action.type) {
     case StudActionTypes.FETCH_SUCCESS: {
-      console.log("Iz reducera " + action.payload);
-      return studentAdapter.addAll(action.payload, state);
+      let students = action.payload.sort(function(userA, userB) {
+        var nameA = userA.name.toUpperCase();
+        var nameB = userB.name.toUpperCase();
+
+        var surnameA = userA.surname.toUpperCase();
+        var surnameB = userB.surname.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        if (surnameA < surnameB) {
+          return -1;
+        }
+        if (surnameA > surnameB) {
+          return 1;
+        }
+
+        return 0;
+      });
+      return studentAdapter.addAll(students, state);
     }
     case StudActionTypes.REMOVE_SUCCESS: {
       console.log("Usao sam u reducer za remove");

@@ -53,8 +53,7 @@ export class AuthEffects {
     ofType(AuthActionTypes.LOGIN_SUCCESS),
     tap(user => {
       localStorage.setItem("token", user.payload.id);
-      if (user.payload.role == "administrator")
-        this.router.navigate(["/administrator"]);
+      if (user.payload.role == "administrator") this.router.navigate(["/administrator"]);
       else this.router.navigate(["/student"]);
     })
   );
@@ -81,17 +80,18 @@ export class AuthEffects {
       console.log(payload.name);
       return this.authService.signUp(payload).pipe(
         map(user => {
-          this.grades.math = "";
-          this.grades.biology = "";
-          this.grades.englishLanguage = "";
-          this.grades.serbianLanguage = "";
-          this.grades.studentId = user.id;
+          if (user != "Username already taken.") {
+            this.grades.math = "";
+            this.grades.biology = "";
+            this.grades.englishLanguage = "";
+            this.grades.serbianLanguage = "";
+            this.grades.studentId = user.id;
 
-          this.authService.addSubjectField(this.grades);
-          return new SignUpStudSuccess({});
-        }),
-        catchError(error => {
-          return of(new SignUpFailure({ error: error }));
+            this.authService.addSubjectField(this.grades);
+            return new SignUpStudSuccess({});
+          } else {
+            return new SignUpFailure("Username already taken.");
+          }
         })
       );
     })
@@ -106,11 +106,12 @@ export class AuthEffects {
       console.log(payload.name);
       return this.authService.signUp(payload).pipe(
         map(user => {
-          console.log(user);
-          return new SignUpSuccess({});
-        }),
-        catchError(error => {
-          return of(new SignUpFailure({ error: error }));
+          if (user != "Username already taken.") {
+            console.log(user);
+            return new SignUpSuccess({ user });
+          } else {
+            return new SignUpFailure(user);
+          }
         })
       );
     })
@@ -136,6 +137,9 @@ export class AuthEffects {
 
   @Effect({ dispatch: false })
   SignUpFailure: Observable<any> = this.actions.pipe(
-    ofType(AuthActionTypes.SIGNUP_FAILURE)
+    ofType(AuthActionTypes.SIGNUP_FAILURE),
+    tap(user => {
+      alert("Email is already taken, try another.");
+    })
   );
 }

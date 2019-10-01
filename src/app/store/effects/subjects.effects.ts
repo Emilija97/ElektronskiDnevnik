@@ -19,9 +19,11 @@ import { User } from "src/app/models/user";
 import { HttpClient } from "@angular/common/http";
 import { Grades } from "src/app/models/grades";
 import { SubjectService } from "src/app/services/subject.service";
+import { environment as env } from "../../../environments/environment";
 
 @Injectable()
 export class SubjectsEffects {
+  public id: number;
   public grades: Grades = new Grades();
   constructor(
     private actions: Actions,
@@ -39,9 +41,7 @@ export class SubjectsEffects {
         map(response => {
           console.log(response);
           if (response == "There isn't in the base table with grades.") {
-            return new FetchSubjectsFailure(
-              "There isn't in the base table with grades."
-            );
+            return new FetchSubjectsFailure("There isn't in the base table with grades.");
           } else return new FetchSubjectsSuccess(response);
         })
       );
@@ -66,12 +66,18 @@ export class SubjectsEffects {
     ofType(SubjectActionTypes.DELETE),
     map((action: Delete) => action.payload),
     switchMap(payload => {
-      return this.subService.deleteGrade(payload).pipe(
-        map(response => {
-          console.log("Iz subject effects: " + response);
-          if (response == "Grade error.") {
-            return new DeleteFailure("Grade error.");
-          } else return new DeleteSuccess(response.id);
+      return this.subService.fetchSubjects(payload).pipe(
+        mergeMap(grade => {
+          console.log("Dobijen id u effects za grade: " + grade.id);
+          this.id = grade.id;
+          return this.subService.deleteGrade(grade.id).pipe(
+            map(delGrade => {
+              if (delGrade) {
+                console.log("Uspesno brisanje ocene: " + this.id);
+                return new DeleteSuccess(delGrade.id);
+              } else return new DeleteFailure("No grades in database");
+            })
+          );
         })
       );
     })

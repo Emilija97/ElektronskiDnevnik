@@ -5,9 +5,10 @@ export enum SubjectActionTypes {
   FETCH_SUBJECT = "[Subject] Fetch subject",
   FETCH_SUBJECTS_SUCCESS = "[Subject] Fetch subjects success",
   FETCH_SUBJECTS_FAILURE = "[Subject] Fetch subjects failure",
-  DELETE = "[Subject] Fetch subjects failure",
-  DELETE_SUCCESS = "[Subject] Fetch subjects failure",
-  DELETE_FAILURE = "[Subject] Fetch subjects failure"
+  DELETE = "[Subject] Delete",
+  DELETE_SUCCESS = "[Subject] Delete success",
+  DELETE_FAILURE = "[Subject] Delete failure",
+  DeleteSuccess = "DeleteSuccess"
 }
 
 export class FetchSubjects implements Action {

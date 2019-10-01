@@ -14,46 +14,43 @@ export class SubjectService {
 
   fetchSubjects(id: number): Observable<any> {
     return Observable.create((obs: Subscriber<any>) => {
-      this.http
-        .get<Grades[]>(`${env.url}/grades?studentId=${id}`)
-        .subscribe(res => {
-          if (res && res.length > 0) {
-            console.log("Potvrdjujem");
-            obs.next(res[0]);
-            obs.complete();
-          } else {
-            console.log("Javljam gresku");
-            throwError("There isn't in the base table with grades.");
-            obs.next("There isn't in the base table with grades.");
-            obs.complete();
-          }
-        });
+      this.http.get<Grades[]>(`${env.url}/grades?studentId=${id}`).subscribe(res => {
+        if (res && res.length > 0) {
+          console.log("Potvrdjujem");
+          obs.next(res[0]);
+          obs.complete();
+        } else {
+          console.log("Javljam gresku");
+          throwError("There isn't in the base table with grades.");
+          obs.next("There isn't in the base table with grades.");
+          obs.complete();
+        }
+      });
     });
   }
 
   changeGrade(grades: Partial<Grades>): Observable<any> {
     return this.http.patch<Grades>(`${env.url}/grades/${grades.id}`, grades);
   }
-  deleteGrade(studId: number): Observable<any> {
-    return Observable.create((obs: Subscriber<any>) => {
-      this.http
-        .get<Grades[]>(`${env.url}/grades?studentId=${studId}`)
-        .subscribe(res => {
-          if (res && res.length > 0) {
-            console.log("Potvrdjujem " + res[0].id);
-            this.http
-              .delete<void>(`${env.url}/grades/${res[0].id}`)
-              .subscribe(() => console.log("Zavrsio sam brisanje"));
-            this.id = res[0].id;
-            // obs.next(res[0].id);
-            obs.complete();
-          } else {
-            console.log("Javljam gresku");
-            throwError("Grade error.");
-            obs.next("Grade error.");
-            obs.complete();
-          }
-        });
-    });
+  // findGrade(studId: number): Observable<any> {
+  //   return Observable.create((obs: Subscriber<any>) => {
+  //     this.http.get<Grades[]>(`${env.url}/grades?studentId=${studId}`).subscribe(res => {
+  //       if (res && res.length > 0) {
+  //         console.log("Potvrdjujem " + res[0].id + ",a id studenta: " + res[0].studentId);
+  //         this.id = res[0].id;
+  //         obs.next(res[0]);
+  //         obs.complete();
+  //       } else {
+  //         console.log("Javljam gresku");
+  //         throwError("Grade error.");
+  //         obs.next("Grade error.");
+  //         obs.complete();
+  //       }
+  //     });
+  //   });
+  // }
+
+  deleteGrade(id: number): Observable<Grades> {
+    return this.http.delete<Grades>(`${env.url}/grades/${id}`);
   }
 }

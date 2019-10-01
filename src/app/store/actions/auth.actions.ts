@@ -7,10 +7,10 @@ export enum AuthActionTypes {
   SIGNUP = "[Auth] Signup",
   SIGNUPSTUDENT = "[Auth] SignupStudent",
   SIGNUP_SUCCESS = "[Auth] Signup Success",
-  SIGNUPSTUD_SUCCESS = "[Auth] Signup Success",
+  SIGNUPSTUD_SUCCESS = "[Auth] SignupStud Success",
   SIGNUP_FAILURE = "[Auth] Signup Failure",
   LOGOUT = "[Auth] Logout",
-  GET_STATUS = "[Auth] GetStatus"
+  GET_STATUS = "[Auth] Get Status"
 }
 
 export class LogIn implements Action {
@@ -67,6 +67,7 @@ export type All =
   | SignUp
   | SignUpStudent
   | SignUpSuccess
+  | SignUpStudSuccess
   | SignUpFailure
   | LogOut
   | GetStatus;

@@ -44,6 +44,7 @@ export function authReducer(state = initialState, action: All): AuthState {
       return state;
     }
     case AuthActionTypes.SIGNUP_FAILURE: {
+      console.log("Signup failure");
       return {
         ...state,
         errorMessage: "That email is already in use."
