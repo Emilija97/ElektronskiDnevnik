@@ -1,8 +1,8 @@
 export class Grades {
   id?: number;
-  serbianLanguage?: string;
-  englishLanguage?: string;
-  math?: string;
-  biology?: string;
+  serbianLanguage?: number[];
+  englishLanguage?: number[];
+  math?: number[];
+  biology?: number[];
   studentId?: number;
 }

@@ -49,10 +49,10 @@ export class AdministratorComponent implements OnInit {
   }
 
   addGrades() {
-    this.grades.math = "";
-    this.grades.biology = "";
-    this.grades.englishLanguage = "";
-    this.grades.serbianLanguage = "";
+    this.grades.math = [];
+    this.grades.biology = [];
+    this.grades.englishLanguage = [];
+    this.grades.serbianLanguage = [];
     this.grades.studentId = 10;
     this.http.post<Grades>(`${env.url}/grades?`, this.grades).subscribe(
       data => {

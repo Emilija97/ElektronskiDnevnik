@@ -1,33 +1,73 @@
 <div class="editing">
     <div *ngIf="grades">
         <div>
-            <h3>Serbian Language: {{ grades.serbianLanguage }}</h3>
+            <h3>Serbian Language:</h3>
+            <ul>
+                <li *ngFor="let grade of grades.serbianLanguage; let i = index">
+                    <input type="text" value="{{ grade }}" disabled="disabled" />
+                    <button (click)="deleteGradeFromArray('serbian', i)">Delete</button>
+                </li>
+            </ul>
             <!-- <input [(ngModel)]="serbian" name="serbian" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
-            <input type="text" placeholder="Write new grade" #serbian required />
+            <!-- <input type="text" placeholder="Write new grade" #serbian required /> -->
+            <select #serbian required>
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+      </select>
             <button (click)="onChange('serbian', serbian.value)">
-        Change grades
+        Add grade
       </button>
         </div>
         <div>
-            <h3>English Language: {{ grades.englishLanguage }}</h3>
+            <h3>English Language:</h3>
+            <ul>
+                <li *ngFor="let grade of grades.englishLanguage; let i = index">
+                    <input type="text" value="{{ grade }}" disabled="disabled" />
+                    <button (click)="deleteGradeFromArray('english', i)">Delete</button>
+                </li>
+            </ul>
             <!-- <input [(ngModel)]="english" name="english" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
-            <input type="text" placeholder="Write new grade" #english required />
+            <!-- <input type="text" placeholder="Write new grade" #english required /> -->
+            <select #english required>
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+      </select>
             <button (click)="onChange('english', english.value)">
-        Change grades
+        Add grade
       </button>
         </div>
         <div>
             <h3>Math: {{ grades.math }}</h3>
             <!-- <input [(ngModel)]="math" name="math" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
-            <input type="text" placeholder="Write new grade" #math required />
-            <button (click)="onChange('math', math.value)">Change grades</button>
+            <!-- <input type="text" placeholder="Write new grade" #math required /> -->
+            <select #math required>
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+      </select>
+            <button (click)="onChange('math', math.value)">Add grade</button>
         </div>
         <div>
-            <h3>Biology: {{ grades.biology }}</h3>
+            <h3>Biology:</h3>
             <!-- <input [(ngModel)]="biology" name="biology" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
-            <input type="text" placeholder="Write new grade" #biology required />
+            <!-- <input type="text" placeholder="Write new grade" #biology required /> -->
+            <select #biology required>
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+      </select>
             <button (click)="onChange('biology', biology.value)">
-        Change grades
+        Add grade
       </button>
         </div>
         <button (click)="onClick()">Back</button>

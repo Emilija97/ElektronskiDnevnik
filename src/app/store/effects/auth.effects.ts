@@ -81,10 +81,10 @@ export class AuthEffects {
       return this.authService.signUp(payload).pipe(
         map(user => {
           if (user != "Username already taken.") {
-            this.grades.math = "";
-            this.grades.biology = "";
-            this.grades.englishLanguage = "";
-            this.grades.serbianLanguage = "";
+            this.grades.math = [];
+            this.grades.biology = [];
+            this.grades.englishLanguage = [];
+            this.grades.serbianLanguage = [];
             this.grades.studentId = user.id;
 
             this.authService.addSubjectField(this.grades);
