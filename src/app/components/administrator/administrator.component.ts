@@ -12,7 +12,7 @@ import { environment as env } from "../../../environments/environment";
 import { StudentsService } from "src/app/services/students.service";
 import { Fetch, Remove } from "src/app/store/actions/students.actions";
 import * as fromStudent from "../../store/reducers/students.reducer";
-import { Delete } from "src/app/store/actions/subjects.actions";
+import { Delete, FetchSubjects } from "src/app/store/actions/subjects.actions";
 
 @Component({
   selector: "app-administrator",
@@ -38,6 +38,10 @@ export class AdministratorComponent implements OnInit {
     console.log(this.students$[0]);
   }
 
+  // onEdit(idStud: number) {
+  //   this.store.dispatch(new FetchSubjects(idStud));
+  //   this.router.navigate([`editing/${idStud}`]);
+  // }
   onSubmit() {
     console.log("zavrsavam");
     this.store.dispatch(new LogOut());
@@ -48,21 +52,8 @@ export class AdministratorComponent implements OnInit {
     this.router.navigate(["/signup-stud"]);
   }
 
-  addGrades() {
-    this.grades.math = [];
-    this.grades.biology = [];
-    this.grades.englishLanguage = [];
-    this.grades.serbianLanguage = [];
-    this.grades.studentId = 10;
-    this.http.post<Grades>(`${env.url}/grades?`, this.grades).subscribe(
-      data => {
-        console.log("Post request is successful ", data);
-      },
-      error => {
-        console.error("Error", error);
-      }
-    );
-    console.log("Zavrsio sam upis ocena" + this.grades);
+  seeBestStudents() {
+    this.router.navigate(["/best-students"]);
   }
 
   onDelete(id: number) {

@@ -7,6 +7,7 @@ import { AdministratorComponent } from "./components/administrator/administrator
 import { StudentComponent } from "./components/student/student.component";
 import { SignupStudComponent } from "./components/signup-stud/signup-stud.component";
 import { EditingComponent } from "./components/editing/editing.component";
+import { BestStudentsComponent } from "./components/best-students/best-students.component";
 
 const routes: Routes = [
   { path: "signup", component: SignupComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: "student", component: StudentComponent },
   { path: "signup-stud", component: SignupStudComponent },
   { path: "editing", component: EditingComponent },
+  { path: "best-students", component: BestStudentsComponent },
   { path: "editing/:studentId", component: EditingComponent }
 ];
 

@@ -10,7 +10,9 @@ import {
   StudActionTypes,
   Remove,
   RemoveSuccess,
-  RemoveFailure
+  RemoveFailure,
+  FindBestSuccess,
+  FindBestFailure
 } from "../actions/students.actions";
 import { SubjectService } from "src/app/services/subject.service";
 import { Delete } from "../actions/subjects.actions";
@@ -78,6 +80,35 @@ export class StudentsEffects {
 
   @Effect({ dispatch: false })
   RemoveFailure: Observable<any> = this.actions.pipe(
+    ofType(StudActionTypes.REMOVE_FAILURE)
+  );
+
+  @Effect()
+  FindBestStudents: Observable<any> = this.actions.pipe(
+    ofType(StudActionTypes.FIND_BEST_STUDENTS),
+    switchMap(() => {
+      return this.studService.getBestStudents().pipe(
+        map(students => {
+          if (students) {
+            console.log(students);
+            return new FindBestSuccess(students);
+          } else {
+            return new FindBestFailure(
+              "No students with that average grade found in database."
+            );
+          }
+        })
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  FindBestSuccess: Observable<any> = this.actions.pipe(
+    ofType(StudActionTypes.REMOVE_SUCCESS)
+  );
+
+  @Effect({ dispatch: false })
+  FindBestFailure: Observable<any> = this.actions.pipe(
     ofType(StudActionTypes.REMOVE_FAILURE)
   );
 }

@@ -17,7 +17,7 @@
         <option [value]="4">4</option>
         <option [value]="5">5</option>
       </select>
-            <button (click)="onChange('serbian', serbian.value)">
+            <button (click)="onAdd('serbian', serbian.value)">
         Add grade
       </button>
         </div>
@@ -38,12 +38,18 @@
         <option [value]="4">4</option>
         <option [value]="5">5</option>
       </select>
-            <button (click)="onChange('english', english.value)">
+            <button (click)="onAdd('english', english.value)">
         Add grade
       </button>
         </div>
         <div>
-            <h3>Math: {{ grades.math }}</h3>
+            <h3>Math:</h3>
+            <ul>
+                <li *ngFor="let grade of grades.math; let i = index">
+                    <input type="text" value="{{ grade }}" disabled="disabled" />
+                    <button (click)="deleteGradeFromArray('math', i)">Delete</button>
+                </li>
+            </ul>
             <!-- <input [(ngModel)]="math" name="math" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
             <!-- <input type="text" placeholder="Write new grade" #math required /> -->
             <select #math required>
@@ -53,10 +59,16 @@
         <option [value]="4">4</option>
         <option [value]="5">5</option>
       </select>
-            <button (click)="onChange('math', math.value)">Add grade</button>
+            <button (click)="onAdd('math', math.value)">Add grade</button>
         </div>
         <div>
             <h3>Biology:</h3>
+            <ul>
+                <li *ngFor="let grade of grades.biology; let i = index">
+                    <input type="text" value="{{ grade }}" disabled="disabled" />
+                    <button (click)="deleteGradeFromArray('biology', i)">Delete</button>
+                </li>
+            </ul>
             <!-- <input [(ngModel)]="biology" name="biology" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
             <!-- <input type="text" placeholder="Write new grade" #biology required /> -->
             <select #biology required>
@@ -66,9 +78,15 @@
         <option [value]="4">4</option>
         <option [value]="5">5</option>
       </select>
-            <button (click)="onChange('biology', biology.value)">
+            <button (click)="onAdd('biology', biology.value)">
         Add grade
       </button>
+        </div>
+        <div *ngIf="averageGrades">
+            <li *ngFor="let sub of nameOfSub; let i = index">
+                <!-- <li *ngFor="let val of averageGrades;"> -->
+                <label>Average grade for subject {{ sub }}: {{ averageGrades[i] }}</label>
+            </li>
         </div>
         <button (click)="onClick()">Back</button>
     </div>

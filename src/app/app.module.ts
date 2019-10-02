@@ -24,6 +24,7 @@ import { StudentsService } from "./services/students.service";
 import { SubjectService } from "./services/subject.service";
 
 import { MDBBootstrapModule } from "angular-bootstrap-md";
+import { BestStudentsComponent } from './components/best-students/best-students.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
     SignupComponent,
     HomepageComponent,
     SignupStudComponent,
-    EditingComponent
+    EditingComponent,
+    BestStudentsComponent
   ],
   imports: [
     FormsModule,

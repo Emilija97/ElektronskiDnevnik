@@ -1,0 +1,16 @@
+<div class="bestStudents">
+    <div>
+        <h3>Best students:</h3>
+    </div>
+    <div class="studentsData">
+        <h1>Students data</h1>
+        <div *ngFor="let student of bestStudents$ | async">
+            <div class="row">
+                <h3>{{ student.name }} {{ student.surname }}</h3>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button (click)="onClick()">Back</button>
+    </div>
+</div>

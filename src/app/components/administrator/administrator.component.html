@@ -23,21 +23,25 @@
                 </div>
                 <div class="dugmad">
                     <div>
-                        <a routerLink="/editing/{{ user.id }}"><button class="edit">Edit</button></a
-            >
-          </div>
-          <div>
-            <button class="delete" (click)="onDelete(user.id)">Delete</button>
-          </div>
+                        <a routerLink="/editing/{{ user.id }}"><button class="edit">Edit</button></a>
+                    </div>
+                    <div>
+                        <button class="delete" (click)="onDelete(user.id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <hr />
         </div>
-      </div>
-      <hr />
     </div>
-  </div>
 
-  <div>
-    <button (click)="logNewStudent()" class="navigation">
+    <div>
+        <button (click)="logNewStudent()" class="navigation">
       Log a new student
     </button>
-  </div>
+    </div>
+    <div>
+        <button (click)="seeBestStudents()" class="navigation">
+      See best students
+    </button>
+    </div>
 </div>

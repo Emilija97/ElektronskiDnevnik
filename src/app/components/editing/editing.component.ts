@@ -5,6 +5,12 @@ import { Grades } from "src/app/models/grades";
 import { Location } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { environment as env } from "src/environments/environment";
+import { StudentsService } from "src/app/services/students.service";
+import { User } from "src/app/models/user";
+import { AppState } from "src/app/store/state/app.states";
+import { Store, select } from "@ngrx/store";
+import { FetchSubjects } from "src/app/store/actions/subjects.actions";
+import { Observable, pipe } from "rxjs";
 
 @Component({
   selector: "app-editing",
@@ -12,20 +18,31 @@ import { environment as env } from "src/environments/environment";
   styleUrls: ["./editing.component.scss"]
 })
 export class EditingComponent implements OnInit {
+  // public gradesObs: Observable<SubjectState>;
+  // public stateProba: SubjectState;
   public grades: Grades;
   public studId: number;
-  serbian: number = 0;
-  math: number = 0;
-  english: number = 0;
-  biology: number = 0;
+  public student: User;
   id: number;
+  public averageGrades: number[] = [];
+  public nameOfSub: string[] = [
+    "Serbian language",
+    "English language",
+    "Math",
+    "Biology"
+  ];
+  public averageGrade: string = "";
 
   constructor(
     private route: ActivatedRoute,
     private subService: SubjectService,
+    private studService: StudentsService,
+    private store: Store<AppState>,
     private location: Location,
     private http: HttpClient
-  ) {}
+  ) {
+    // this.gradesObs = store.select("subjects");
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -34,50 +51,74 @@ export class EditingComponent implements OnInit {
       if (!this.studId) {
         this.location.back();
       } else {
+        // this.store.dispatch(new FetchSubjects(this.studId));
         this.subService.fetchSubjects(this.studId).subscribe(grades => {
           this.grades = grades;
           this.id = grades.id;
           console.log(this.id);
+          this.calculateAverageGrades();
+        });
+        this.http.get<User>(`${env.url}/users?id=${this.studId}`).subscribe(user => {
+          this.student = user[0];
+          this.averageGrade = user.averageGrade;
         });
       }
     });
   }
 
   onClick() {
+    this.prepareStudentForUpdate();
     this.location.back();
   }
 
-  onChange(subject: string, val: number) {
+  onAdd(subject: string, val: number) {
     if (subject == "serbian") {
       this.grades.serbianLanguage.push(val - 0);
-      // this.serbian = "";
     } else if (subject == "english") {
-      let grade = val - 0;
-      this.grades.englishLanguage.push(grade);
-      // this.english = "";
+      this.grades.englishLanguage.push(val - 0);
     } else if (subject == "math") {
       this.grades.math.push(val - 0);
-      // this.math = "";
     } else {
       this.grades.biology.push(val - 0);
-      // this.biology = "";
     }
-    // if (this.serbian != "") {
-    //   this.grades.serbianLanguage = this.serbian.valueOf();
-    //   this.serbian = "";
-    // } else if (this.english != "") {
-    //   this.grades.englishLanguage = this.english.valueOf();
-    //   this.english = "";
-    // } else if (this.math != "") {
-    //   this.grades.math = this.math.valueOf();
-    //   this.math = "";
-    // } else {
-    //   this.grades.biology = this.biology.valueOf();
-    //   this.biology = "";
-    // }
+    this.calculateAverageGrades();
     this.subService.changeGrade(this.grades).subscribe(grades => {
       console.log("New grades");
     });
+  }
+
+  prepareStudentForUpdate() {
+    let sum = 0;
+    this.averageGrades.forEach(el => {
+      if (el) sum += el;
+    });
+    this.student.averageGrade = (sum / this.averageGrades.length).toFixed(2);
+    console.log(this.student.id + "provera");
+    this.studService.updateUser(this.student).subscribe(user => {
+      console.log("Updated");
+    });
+  }
+  calculateAverageGrades() {
+    let sum: number = 0;
+    this.grades.serbianLanguage.forEach(el => {
+      sum += el;
+    });
+    this.averageGrades[0] = sum / this.grades.serbianLanguage.length;
+    sum = 0;
+    this.grades.englishLanguage.forEach(el => {
+      sum += el;
+    });
+    this.averageGrades[1] = sum / this.grades.englishLanguage.length;
+    sum = 0;
+    this.grades.math.forEach(el => {
+      sum += el;
+    });
+    this.averageGrades[2] = sum / this.grades.math.length;
+    sum = 0;
+    this.grades.biology.forEach(el => {
+      sum += el;
+    });
+    this.averageGrades[3] = sum / this.grades.biology.length;
   }
 
   deleteGradeFromArray(subject: string, index: number) {
@@ -98,16 +139,20 @@ export class EditingComponent implements OnInit {
       }
       case "math": {
         let tmp = this.grades.math[index];
+        this.grades.math.splice(index, 1);
         console.log(tmp);
         break;
       }
       default: {
         let tmp = this.grades.biology[index];
+        this.grades.biology.splice(index, 1);
         console.log(tmp);
       }
     }
     this.subService.changeGrade(this.grades).subscribe(grades => {
       console.log("Deleted grade " + tmp + " from " + subject);
     });
+    this.calculateAverageGrades();
+    // this.prepareStudentForUpdate();
   }
 }

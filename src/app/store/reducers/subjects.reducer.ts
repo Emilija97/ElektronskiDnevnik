@@ -14,6 +14,8 @@ export const initialState: SubjectState = {
 export function subjectReducer(state = initialState, action: All): SubjectState {
   switch (action.type) {
     case SubjectActionTypes.FETCH_SUBJECTS_SUCCESS: {
+      console.log("Usao sam u reducer za subjects");
+      console.log(state);
       return {
         ...state,
         errorMessage: null,

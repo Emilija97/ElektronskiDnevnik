@@ -37,7 +37,7 @@ export class SubjectsEffects {
     ofType(SubjectActionTypes.FETCH_SUBJECTS),
     map((action: FetchSubjects) => action.payload),
     switchMap(payload => {
-      return this.subService.fetchSubjects(payload.id).pipe(
+      return this.subService.fetchSubjects(payload).pipe(
         map(response => {
           console.log(response);
           if (response == "There isn't in the base table with grades.") {

@@ -28,4 +28,12 @@ export class StudentsService {
   remove(id: number): Observable<User> {
     return this.http.delete<User>(`${env.url}/users/${id}`);
   }
+
+  updateUser(user: Partial<User>): Observable<any> {
+    return this.http.patch<User>(`${env.url}/users/${user.id}`, user);
+  }
+
+  getBestStudents(): Observable<User[]> {
+    return this.http.get<User[]>(`${env.url}/users?role=student&averageGrade=5.00`);
+  }
 }
