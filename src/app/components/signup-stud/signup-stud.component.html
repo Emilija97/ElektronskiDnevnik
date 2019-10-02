@@ -1,38 +1,74 @@
-<div class="stud">
-    <div class="displayTable">
-        <div class="displayTableCell">
-            <div class="authBlock">
-                <h2>Sign Up Student</h2>
-                <hr><br>
-                <form (ngSubmit)="onSubmit()" ngNativeValidate>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <br>
-                        <input [(ngModel)]="student.email" name="email" type="email" required class="form-control" id="email" placeholder="Enter an email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <br>
-                        <input [(ngModel)]="student.password" name="password" type="password" required class="form-control" id="password" placeholder="Enter a password">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <br>
-                        <input [(ngModel)]="student.name" name="name" type="text" required class="form-control" id="name" placeholder="Enter student name">
-                    </div>
-                    <div class="form-group">
-                        <label for="surname">Surname</label>
-                        <br>
-                        <input [(ngModel)]="student.surname" name="surname" type="text" required class="form-control" id="surname" placeholder="Enter student surname">
-                    </div>
-                    <!-- <input type="button" class="btn btnPrimary" value="Submit" (click)="onSubmit()"> -->
-                    <button type="submit" class="btn btn-primary navigation">Sign up student</button>
-                    <br>
-                    <a [routerLink]="['/']" class="btn btn-success"><button class="navigation">Cancel</button></a>
+<div class="py-5" *ngIf="authObs$ | async as auth">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <mat-card class="rounded-0">
+                <mat-card-title>
+                    <h4>Register student</h4>
+                    <small class="text-danger" *ngIf="auth.errorMessage">{{auth.errorMessage}}</small>
+                </mat-card-title>
 
-                    <!-- <button (click)="onBack()">Back</button> -->
+                <form class="form" [formGroup]="signUpStudForm" (ngSubmit)="signUpStudForm.valid && onSubmit()">
+                    <mat-card-content>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="name" placeholder="First name" [class.is-invalid]="name.invalid && (name.touched || auth.showInvalid)" type="text" class="rounded-0">
+                            <mat-error *ngIf="name.errors?.required && (name.touched || auth.showInvalid)">
+                                First name is required.<br></mat-error>
+                            <mat-error *ngIf="name.errors?.pattern && (name.touched || auth.showInvalid)">
+                                First name must have letters only.<br></mat-error>
+                            <mat-error *ngIf="name.errors?.minlength && (name.touched || auth.showInvalid)">
+                                First name must have at least 3 characters.<br></mat-error>
+                            <mat-error *ngIf="name.errors?.maxlength && (name.touched || auth.showInvalid)">
+                                First name must be shorter than 40 characters.<br></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="surname" placeholder="Last name" [class.is-invalid]="surname.invalid && (surname.touched || auth.showInvalid)" type="text" class="rounded-0">
+                            <mat-error *ngIf="surname.errors?.required && (surname.touched || auth.showInvalid)">
+                                First name is required.<br></mat-error>
+                            <mat-error *ngIf="surname.errors?.pattern && (surname.touched || auth.showInvalid)">
+                                First name must have letters only.<br></mat-error>
+                            <mat-error *ngIf="surname.errors?.minlength && (surname.touched || auth.showInvalid)">
+                                First name must have at least 3 characters.<br></mat-error>
+                            <mat-error *ngIf="surname.errors?.maxlength && (surname.touched || auth.showInvalid)">
+                                First name must be shorter than 40 characters.<br></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="email" placeholder="Email" [class.is-invalid]="email.invalid && (email.touched || auth.showInvalid)" type="text" class="rounded-0">
+                            <mat-error *ngIf="email.errors?.required && (email.touched || auth.showInvalid)">
+                                Email is required.<br></mat-error>
+                            <mat-error *ngIf="email.errors?.email && (email.touched || auth.showInvalid)">
+                                Email must be valid.<br></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="password" placeholder="Password" [class.is-invalid]="password.invalid && (password.touched || auth.showInvalid)" type="password" class="rounded-0">
+                            <mat-error *ngIf="password.errors?.pattern && !password.errors?.minlength && !password.errors?.maxlength && (password.touched || auth.showInvalid)">
+                                Password must have uppercase, lowercase and numbers only.<br></mat-error>
+                            <mat-error *ngIf="password.errors?.required && (password.touched || auth.showInvalid)">
+                                Password is required.<br></mat-error>
+                            <mat-error *ngIf="password.errors?.minlength && (password.touched || auth.showInvalid)">
+                                Password must have at least 6 characters.<br></mat-error>
+                            <mat-error *ngIf="password.errors?.maxlength && (password.touched || auth.showInvalid)">
+                                Password must be shorter than 40 characters.<br></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="confirmPassword" placeholder="Confirm password" [class.is-invalid!important]="(formErrors?.passwordMismatch || confirmPassword.invalid) && (confirmPassword.touched || auth.showInvalid)" type="password" class="rounded-0">
+                            <mat-error *ngIf="confirmPassword.errors?.required && (confirmPassword.touched || auth.showInvalid)">
+                                Password confirmation is required.<br></mat-error>
+                            <mat-error *ngIf="formErrors?.passwordMismatch && (confirmPassword.touched || auth.showInvalid)">
+                                Password confirmation mismatch<br></mat-error>
+                        </mat-form-field>
+                    </mat-card-content>
+                    <mat-card-actions class="d-flex flex-row-reverse justify-content-between">
+
+                        <button mat-flat-button color="accent" type="submit" (click)="showInvalid()" class="rounded-0">Register</button>
+                        <button mat-flat-button color="accent" (click)="onBack()" class="rounded-0">Back</button>
+                    </mat-card-actions>
                 </form>
-            </div>
-
+            </mat-card>
         </div>
     </div>
+</div>

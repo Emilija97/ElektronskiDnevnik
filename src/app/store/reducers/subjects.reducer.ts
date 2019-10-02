@@ -7,7 +7,14 @@ export interface SubjectState {
 }
 
 export const initialState: SubjectState = {
-  grades: null,
+  grades: {
+    id: 0,
+    serbianLanguage: [],
+    englishLanguage: [],
+    math: [],
+    biology: [],
+    studentId: ""
+  },
   errorMessage: null
 };
 
@@ -19,12 +26,7 @@ export function subjectReducer(state = initialState, action: All): SubjectState 
       return {
         ...state,
         errorMessage: null,
-        grades: {
-          serbianLanguage: action.payload.serbianLanguage,
-          englishLanguage: action.payload.englishLanguage,
-          math: action.payload.math,
-          biology: action.payload.biology
-        }
+        grades: action.payload
       };
     }
     case SubjectActionTypes.FETCH_SUBJECTS_FAILURE: {

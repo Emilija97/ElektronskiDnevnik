@@ -1,47 +1,51 @@
 <div class="administrator">
-    <div *ngIf="authService.user; then authenticated">
-        <!-- template will replace this div -->
-    </div>
+    <div class="py-5 px-5" *ngIf="authObs$ | async as auth">
+        <!-- User logged in -->
+        <div *ngIf="auth.isLoggedIn; then authenticated"></div>
+        <ng-template #authenticated>
+            <div *ngIf="auth.user as user">
+                <h1>Welcome, {{ user.name }} {{ user.surname }}</h1>
 
-    <!-- User logged in -->
-    <ng-template #authenticated>
-        <div *ngIf="authService.user as user">
-            <h1>Welcome, {{ user.name }} {{ user.surname }}</h1>
-
-            <p>email: {{ user.email }}</p>
-            <p>You are successfully logged in!</p>
-            <input type="button" class="btn btnPrimary navigation" value="Log out" (click)="onSubmit()" />
-        </div>
-    </ng-template>
-
-    <div class="studentsData">
-        <h1>Students data</h1>
-        <div *ngFor="let user of students$ | async">
-            <div class="row">
-                <div class="student">
-                    <h3>{{ user.name }} {{ user.surname }}</h3>
-                </div>
-                <div class="dugmad">
-                    <div>
-                        <a routerLink="/editing/{{ user.id }}"><button class="edit">Edit</button></a>
-                    </div>
-                    <div>
-                        <button class="delete" (click)="onDelete(user.id)">Delete</button>
-                    </div>
-                </div>
+                <p>email: {{ user.email }}</p>
+                <p>You are logged in: {{ auth.isLoggedIn }}</p>
             </div>
-            <hr />
-        </div>
-    </div>
+            <mat-card-actions class="d-flex flex-row-reverse justify-content-between">
+                <button mat-flat-button color="primary" (click)="logOut()" class="rounded-0">
+          Log Out
+        </button>
+                <button mat-flat-button color="primary" (click)="logNewStudent()" class="rounded-0">
+          Log a new student
+        </button>
+                <button mat-flat-button color="primary" (click)="seeBestStudents()" class="rounded-0">
+          See best students
+        </button>
+            </mat-card-actions>
 
-    <div>
-        <button (click)="logNewStudent()" class="navigation">
-      Log a new student
-    </button>
-    </div>
-    <div>
-        <button (click)="seeBestStudents()" class="navigation">
-      See best students
-    </button>
-    </div>
+            <div class="studentsData">
+                <h1>Students data</h1>
+                <div *ngFor="let user of students$ | async">
+                    <div class="row">
+                        <mat-card-actions class="d-flex flex-row-reverse justify-content-between">
+                            <h3>{{ user.name }} {{ user.surname }}</h3>
+                            <mat-card-actions class="d-flex flex-row-reverse justify-content-between">
+                                <a routerLink="/editing/{{ user.id }}"><button mat-flat-button color="accent" class="rounded-0">
+                    Edit
+                  </button></a
+                >
+                <button
+                  mat-flat-button
+                  color="primary"
+                  (click)="onDelete(user.id)"
+                  class="rounded-0"
+                >
+                  Delete
+                </button>
+              </mat-card-actions>
+            </mat-card-actions>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </ng-template>
+  </div>
 </div>

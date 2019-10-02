@@ -16,7 +16,10 @@ import {
   SignUpFailure,
   LogOut,
   SignUpStudent,
-  SignUpStudSuccess
+  SignUpStudSuccess,
+  CheckUserSuccess,
+  CheckUserFailure,
+  CheckUser
 } from "../actions/auth.actions";
 import { User } from "src/app/models/user";
 import { HttpClient } from "@angular/common/http";
@@ -31,6 +34,23 @@ export class AuthEffects {
     private router: Router,
     private http: HttpClient
   ) {}
+
+  @Effect()
+  CheckUser: Observable<CheckUserSuccess | CheckUserFailure> = this.actions.pipe(
+    ofType(AuthActionTypes.CHECK_USER),
+    map((action: CheckUser) => action.payload),
+    switchMap(payload => {
+      return this.authService.getById(payload).pipe(
+        map(user => {
+          if (user) {
+            return new CheckUserSuccess(user);
+          } else {
+            return new CheckUserFailure("User not found.");
+          }
+        })
+      );
+    })
+  );
 
   @Effect()
   LogIn: Observable<any> = this.actions.pipe(
@@ -53,7 +73,7 @@ export class AuthEffects {
     ofType(AuthActionTypes.LOGIN_SUCCESS),
     tap(user => {
       localStorage.setItem("token", user.payload.id);
-      if (user.payload.role == "administrator") this.router.navigate(["/administrator"]);
+      if (user.payload.role == "administrator") this.router.navigate([""]);
       else this.router.navigate(["/student"]);
     })
   );
@@ -123,7 +143,7 @@ export class AuthEffects {
     tap(action => {
       console.log(action);
       localStorage.setItem("token", action.payload.id);
-      this.router.navigate(["/administrator"]);
+      this.router.navigate([""]);
     })
   );
 

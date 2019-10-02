@@ -1,14 +1,24 @@
-<div class="student">
-    <div *ngIf="authService.user as user">
-        <h2>STUDENT: {{ user.name }} {{ user.surname }}</h2>
-        <h3>Average grade: {{ user.averageGrade }}</h3>
-        <div *ngIf="grades">
-            <h3>ID studenta u bazi: {{ grades.studentId }}</h3>
-            <h3>Serbian Language: {{ grades.serbianLanguage }}</h3>
-            <h3>English Language: {{ grades.englishLanguage }}</h3>
-            <h3>Math: {{ grades.math }}</h3>
-            <h3>Biology: {{ grades.biology }}</h3>
+<div class="py-5 px-5" *ngIf="authObs$ | async as auth">
+    <div class="row">
+        <div class="student ml-1">
+            <div *ngIf="auth.user as user">
+                <h2>STUDENT: {{ user.name }} {{ user.surname }}</h2>
+                <h3>Average grade: {{ user.averageGrade }}</h3>
+                <h3>Is logged in: {{auth.isLoggedIn }}</h3>
+                <div *ngIf="grades">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">ID studenta u bazi: {{ grades.studentId }}</li>
+                        <li class="list-group-item">Serbian Language: {{ grades.serbianLanguage }}</li>
+                        <li class="list-group-item">English Language: {{ grades.englishLanguage }}</li>
+                        <li class="list-group-item">Math: {{ grades.math }}</li>
+                        <li class="list-group-item">Biology: {{ grades.biology }}</li>
+                    </ul>
+                </div>
+                <mat-card-actions class="d-flex flex-row-reverse ">
+
+                    <button mat-flat-button color="primary" (click)="signOut()" class="rounded-0">Log Out</button>
+                </mat-card-actions>
+            </div>
         </div>
-        <button (click)="signOut()">Logout</button>
     </div>
 </div>

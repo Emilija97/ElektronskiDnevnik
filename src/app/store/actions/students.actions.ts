@@ -31,13 +31,13 @@ export class FetchFailure implements Action {
 export class Remove implements Action {
   readonly type = StudActionTypes.REMOVE;
 
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export class RemoveSuccess implements Action {
   readonly type = StudActionTypes.REMOVE_SUCCESS;
 
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export class RemoveFailure implements Action {

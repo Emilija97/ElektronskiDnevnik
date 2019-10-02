@@ -4,5 +4,5 @@ export class Grades {
   englishLanguage?: number[];
   math?: number[];
   biology?: number[];
-  studentId?: number;
+  studentId?: string;
 }

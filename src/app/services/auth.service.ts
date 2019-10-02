@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, Subscriber, throwError } from "rxjs";
 import { User } from "../models/user";
 import { Router } from "@angular/router";
-import { find, map } from "rxjs/operators";
+import { find, map, catchError } from "rxjs/operators";
 import { environment as env } from "../../environments/environment";
 import { Grades } from "../models/grades";
 
@@ -14,12 +14,20 @@ export class AuthService {
   public grades: Grades = new Grades();
   public user: User;
   public student: User;
-  public id: number;
+  // public id: string;
   public users$: Observable<User[]>;
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken(): string {
     return localStorage.getItem("token");
+  }
+
+  getById(id: string): Observable<User> {
+    return this.http.get<User>(`${env.url}/users/${id}`).pipe(
+      catchError(err => {
+        return throwError("User not found.");
+      })
+    );
   }
 
   logIn(email: string, password: string): Observable<any> {
@@ -34,7 +42,7 @@ export class AuthService {
             obs.complete();
           } else {
             console.log("Javljam gresku");
-            throwError("Username or password incorrect.");
+            // throwError("Username or password incorrect.");
             obs.next("Username or password incorrect.");
             obs.complete();
           }

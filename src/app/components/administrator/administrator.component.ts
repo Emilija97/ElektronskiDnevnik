@@ -13,6 +13,7 @@ import { StudentsService } from "src/app/services/students.service";
 import { Fetch, Remove } from "src/app/store/actions/students.actions";
 import * as fromStudent from "../../store/reducers/students.reducer";
 import { Delete, FetchSubjects } from "src/app/store/actions/subjects.actions";
+import { AuthState } from "src/app/store/reducers/auth.reducer";
 
 @Component({
   selector: "app-administrator",
@@ -21,6 +22,7 @@ import { Delete, FetchSubjects } from "src/app/store/actions/subjects.actions";
 })
 export class AdministratorComponent implements OnInit {
   public students$: Observable<User[]>;
+  authObs$: Observable<AuthState>;
 
   grades: Grades = new Grades();
   constructor(
@@ -29,20 +31,17 @@ export class AdministratorComponent implements OnInit {
     public authService: AuthService,
     public studService: StudentsService,
     private http: HttpClient
-  ) {}
+  ) {
+    this.authObs$ = this.store.select("auth");
+  }
 
   ngOnInit() {
-    console.log(this.authService.user.name);
     this.store.dispatch(new Fetch());
     this.students$ = this.store.select(fromStudent.selectAllStudents);
     console.log(this.students$[0]);
   }
 
-  // onEdit(idStud: number) {
-  //   this.store.dispatch(new FetchSubjects(idStud));
-  //   this.router.navigate([`editing/${idStud}`]);
-  // }
-  onSubmit() {
+  logOut() {
     console.log("zavrsavam");
     this.store.dispatch(new LogOut());
     this.router.navigate(["/login"]);
@@ -56,7 +55,7 @@ export class AdministratorComponent implements OnInit {
     this.router.navigate(["/best-students"]);
   }
 
-  onDelete(id: number) {
+  onDelete(id: string) {
     console.log("Delete id: " + id);
     this.store.dispatch(new Remove(id));
     this.store.dispatch(new Delete(id));

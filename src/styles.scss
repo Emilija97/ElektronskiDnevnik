@@ -1,24 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
-body {
-    min-height: 100%;
-    min-width: 100%;
-    position: absolute;
-    background: linear-gradient(#3570c2, #94b9ff, #add3ff, #bdd8ff) fixed;
-}
-
-.navigation {
-    width: 180px;
-    height: 25px;
-    font-size: 18px;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    font-family: "Times New Roman";
-    padding-left: 5px;
-    color: #3e1061;
-    border: 2px solid #3e1061;
-    border-radius: 7px;
-    background-image: linear-gradient(to right, #3570c2, #add3ff, #bdd8ff);
-    font-weight: bold;
-}
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
+@import "./assets/css/bootstrap.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";

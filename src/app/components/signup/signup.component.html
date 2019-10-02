@@ -1,46 +1,86 @@
-<div class="displayTable">
-    <div class="displayTableCell">
-        <div class="authBlock">
-            <div class="forma">
-                <h2>Sign Up</h2>
-                <hr />
-                <br />
-                <form (ngSubmit)="onSubmit()" ngNativeValidate>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <br />
-                        <input [(ngModel)]="user.email" name="email" type="email" required class="form-control" id="email" placeholder="Enter an email" />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <br />
-                        <input [(ngModel)]="user.password" name="password" type="password" required class="form-control" id="password" placeholder="Enter a password" />
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <br />
-                        <input [(ngModel)]="user.name" name="name" type="text" required class="form-control" id="name" placeholder="Enter name" />
-                    </div>
-                    <div class="form-group">
-                        <label for="surname">Surname</label>
-                        <br />
-                        <input [(ngModel)]="user.surname" name="surname" type="text" required class="form-control" id="surname" placeholder="Enter surname" />
-                    </div>
-                    <div class="form-group">
-                        <label for="code">Code</label>
-                        <br />
-                        <input [(ngModel)]="code" name="code" type="password" required class="form-control" id="code" placeholder="Enter affirmation code" />
-                    </div>
-                    <button type="submit" class="btn btn-primary navigation">
-            Sign up
-          </button>
-                </form>
+<div class="py-5" *ngIf="authObs$ | async as auth">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <mat-card class="rounded-0">
+                <mat-card-title>
+                    <h4>Register <small>or <a routerLink="/login">login</a></small></h4>
+                    <small class="text-danger" *ngIf="auth.errorMessage">{{auth.errorMessage}}</small>
+                    <small *ngIf="!auth.errorMessage">Provide your basic info</small>
+                </mat-card-title>
 
-                <div class="redirectToLogin">
-                    <span>Already have an account?
-            <span class="redirect" routerLink="/login">Log In</span></span>
-                </div>
-            </div>
+                <form class="form" [formGroup]="signUpForm" (ngSubmit)="signUpForm.valid && onSubmit()">
+                    <mat-card-content>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput [(ngModel)]="code" formControlName="affirmationCode" placeholder="affirmationCode" [class.is-invalid]="affirmationCode.invalid && (affirmationCode.touched || auth.showInvalid)" type="password" class="rounded-0">
+                            <mat-error *ngIf="affirmationCode.errors?.required && (affirmationCode.touched || auth.showInvalid)">
+                                Affirmation code is required.<br></mat-error>
+                            <mat-error *ngIf="affirmationCode.errors?.pattern && (affirmationCode.touched || auth.showInvalid)">
+                                Affirmation code must have letters and numbers only.<br></mat-error>
+                            <mat-error *ngIf="affirmationCode.errors?.minlength && (affirmationCode.touched || auth.showInvalid)">
+                                Affirmation code must have at least 4 characters.<br></mat-error>
+                            <mat-error *ngIf="affirmationCode.errors?.maxlength && (affirmationCode.touched || auth.showInvalid)">
+                                Affirmation code must be shorter tan 30 characters.<br></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="name" placeholder="First name" [class.is-invalid]="name.invalid && (name.touched || auth.showInvalid)" type="text" class="rounded-0">
+                            <mat-error *ngIf="name.errors?.required && (name.touched || auth.showInvalid)">
+                                First name is required.<br></mat-error>
+                            <mat-error *ngIf="name.errors?.pattern && (name.touched || auth.showInvalid)">
+                                First name must have letters only.<br></mat-error>
+                            <mat-error *ngIf="name.errors?.minlength && (name.touched || auth.showInvalid)">
+                                First name must have at least 3 characters.<br></mat-error>
+                            <mat-error *ngIf="name.errors?.maxlength && (name.touched || auth.showInvalid)">
+                                First name must be shorter than 40 characters.<br></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="surname" placeholder="Last name" [class.is-invalid]="surname.invalid && (surname.touched || auth.showInvalid)" type="text" class="rounded-0">
+                            <mat-error *ngIf="surname.errors?.required && (surname.touched || auth.showInvalid)">
+                                First name is required.<br></mat-error>
+                            <mat-error *ngIf="surname.errors?.pattern && (surname.touched || auth.showInvalid)">
+                                First name must have letters only.<br></mat-error>
+                            <mat-error *ngIf="surname.errors?.minlength && (surname.touched || auth.showInvalid)">
+                                First name must have at least 3 characters.<br></mat-error>
+                            <mat-error *ngIf="surname.errors?.maxlength && (surname.touched || auth.showInvalid)">
+                                First name must be shorter than 40 characters.<br></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="email" placeholder="Email" [class.is-invalid]="email.invalid && (email.touched || auth.showInvalid)" type="text" class="rounded-0">
+                            <mat-error *ngIf="email.errors?.required && (email.touched || auth.showInvalid)">
+                                Email is required.<br></mat-error>
+                            <mat-error *ngIf="email.errors?.email && (email.touched || auth.showInvalid)">
+                                Email must be valid.<br></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="password" placeholder="Password" [class.is-invalid]="password.invalid && (password.touched || auth.showInvalid)" type="password" class="rounded-0">
+                            <mat-error *ngIf="password.errors?.pattern && !password.errors?.minlength && !password.errors?.maxlength && (password.touched || auth.showInvalid)">
+                                Password must have uppercase, lowercase and numbers only.<br></mat-error>
+                            <mat-error *ngIf="password.errors?.required && (password.touched || auth.showInvalid)">
+                                Password is required.<br></mat-error>
+                            <mat-error *ngIf="password.errors?.minlength && (password.touched || auth.showInvalid)">
+                                Password must have at least 6 characters.<br></mat-error>
+                            <mat-error *ngIf="password.errors?.maxlength && (password.touched || auth.showInvalid)">
+                                Password must be shorter than 40 characters.<br></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="d-flex flex-column">
+                            <input matInput formControlName="confirmPassword" placeholder="Confirm password" [class.is-invalid!important]="(formErrors?.passwordMismatch || confirmPassword.invalid) && (confirmPassword.touched || auth.showInvalid)" type="password" class="rounded-0">
+                            <mat-error *ngIf="confirmPassword.errors?.required && (confirmPassword.touched || auth.showInvalid)">
+                                Password confirmation is required.<br></mat-error>
+                            <mat-error *ngIf="formErrors?.passwordMismatch && (confirmPassword.touched || auth.showInvalid)">
+                                Password confirmation mismatch<br></mat-error>
+                        </mat-form-field>
+                    </mat-card-content>
+                    <mat-card-actions class="d-flex flex-row-reverse ">
+
+                        <button mat-flat-button color="accent" type="submit" (click)="showInvalid()" class="rounded-0">Register</button>
+                    </mat-card-actions>
+                </form>
+            </mat-card>
         </div>
     </div>
 </div>

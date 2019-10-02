@@ -4,40 +4,56 @@ import { EntityState, createEntityAdapter } from "@ngrx/entity";
 import { createFeatureSelector } from "@ngrx/store";
 
 export interface AuthState {
-  isAuthenticated: boolean;
-  user: User | null;
-  errorMessage: string | null;
+  isLoggedIn: boolean;
+  user: User;
+  errorMessage: string;
+  showInvalid: boolean;
 }
 
 export const initialState: AuthState = {
-  isAuthenticated: false,
-  user: null,
-  errorMessage: null
+  isLoggedIn: false,
+  user: {
+    id: "",
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+    role: "",
+    averageGrade: ""
+  },
+  errorMessage: "",
+  showInvalid: false
 };
 
-export function authReducer(state = initialState, action: All): AuthState {
+export function authReducer(state: AuthState = initialState, action: All): AuthState {
   switch (action.type) {
     case AuthActionTypes.LOGIN_SUCCESS: {
+      action.payload["password"] = undefined;
       return {
         ...state,
-        isAuthenticated: true,
-        user: action.payload.user,
-        errorMessage: null
+        isLoggedIn: true,
+        user: action.payload,
+        errorMessage: "",
+        showInvalid: false
       };
     }
     case AuthActionTypes.LOGIN_FAILURE: {
       console.log("Usao sam u reducer");
       return {
         ...state,
-        errorMessage: "Incorrect email and/or password."
+        ...initialState,
+        errorMessage: "Incorrect email and/or password.",
+        showInvalid: true
       };
     }
     case AuthActionTypes.SIGNUP_SUCCESS: {
+      action.payload["password"] = undefined;
       return {
         ...state,
-        isAuthenticated: true,
-        user: action.payload.user,
-        errorMessage: null
+        isLoggedIn: true,
+        user: action.payload,
+        errorMessage: "",
+        showInvalid: false
       };
     }
     case AuthActionTypes.SIGNUPSTUD_SUCCESS: {
@@ -47,8 +63,30 @@ export function authReducer(state = initialState, action: All): AuthState {
       console.log("Signup failure");
       return {
         ...state,
-        errorMessage: "That email is already in use."
+        ...initialState,
+        errorMessage: "That email is already in use.",
+        showInvalid: true
       };
+    }
+    case AuthActionTypes.CHECK_USER_SUCCESS: {
+      action.payload["password"] = undefined;
+      return {
+        ...state,
+        isLoggedIn: true,
+        user: action.payload,
+        errorMessage: "",
+        showInvalid: false
+      };
+    }
+    case AuthActionTypes.CHECK_USER_FAILURE: {
+      localStorage.removeItem("token");
+      return { ...state, ...initialState };
+    }
+    case AuthActionTypes.SHOW_INVALID: {
+      return { ...state, showInvalid: true };
+    }
+    case AuthActionTypes.RESET_ERROR_MESSAGE: {
+      return { ...state, errorMessage: "", showInvalid: false };
     }
     case AuthActionTypes.LOGOUT: {
       return initialState;

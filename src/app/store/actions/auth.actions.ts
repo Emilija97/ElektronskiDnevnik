@@ -1,4 +1,5 @@
 import { Action } from "@ngrx/store";
+import { User } from "src/app/models/user";
 
 export enum AuthActionTypes {
   LOGIN = "[Auth] Login",
@@ -10,7 +11,30 @@ export enum AuthActionTypes {
   SIGNUPSTUD_SUCCESS = "[Auth] SignupStud Success",
   SIGNUP_FAILURE = "[Auth] Signup Failure",
   LOGOUT = "[Auth] Logout",
-  GET_STATUS = "[Auth] Get Status"
+  GET_STATUS = "[Auth] Get Status",
+  CHECK_USER = "[AUTH] Check user",
+  CHECK_USER_SUCCESS = "[AUTH] Check user success",
+  CHECK_USER_FAILURE = "[AUTH] Check user failure",
+  SHOW_INVALID = "[AUTH] Show invalid",
+  RESET_ERROR_MESSAGE = "[AUTH] Reset error message"
+}
+
+export class CheckUser implements Action {
+  readonly type = AuthActionTypes.CHECK_USER;
+
+  constructor(public payload: string) {}
+}
+
+export class CheckUserSuccess implements Action {
+  readonly type = AuthActionTypes.CHECK_USER_SUCCESS;
+
+  constructor(public payload: User) {}
+}
+
+export class CheckUserFailure implements Action {
+  readonly type = AuthActionTypes.CHECK_USER_FAILURE;
+
+  constructor(public payload: string) {}
 }
 
 export class LogIn implements Action {
@@ -60,6 +84,14 @@ export class GetStatus implements Action {
   readonly type = AuthActionTypes.GET_STATUS;
 }
 
+export class ShowInvalid implements Action {
+  readonly type = AuthActionTypes.SHOW_INVALID;
+}
+
+export class ResetErrorMessage implements Action {
+  readonly type = AuthActionTypes.RESET_ERROR_MESSAGE;
+}
+
 export type All =
   | LogIn
   | LogInSuccess
@@ -70,4 +102,9 @@ export type All =
   | SignUpStudSuccess
   | SignUpFailure
   | LogOut
-  | GetStatus;
+  | GetStatus
+  | CheckUser
+  | CheckUserSuccess
+  | CheckUserFailure
+  | ShowInvalid
+  | ResetErrorMessage;

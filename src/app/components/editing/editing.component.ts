@@ -21,7 +21,7 @@ export class EditingComponent implements OnInit {
   // public gradesObs: Observable<SubjectState>;
   // public stateProba: SubjectState;
   public grades: Grades;
-  public studId: number;
+  public studId: string;
   public student: User;
   id: number;
   public averageGrades: number[] = [];

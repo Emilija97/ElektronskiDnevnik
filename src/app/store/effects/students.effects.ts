@@ -19,7 +19,7 @@ import { Delete } from "../actions/subjects.actions";
 
 @Injectable()
 export class StudentsEffects {
-  public id: number;
+  public id: string;
   constructor(
     private router: Router,
     private actions: Actions,

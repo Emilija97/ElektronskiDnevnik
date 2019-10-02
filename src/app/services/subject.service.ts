@@ -12,7 +12,7 @@ export class SubjectService {
   public id: number;
   constructor(private http: HttpClient, private router: Router) {}
 
-  fetchSubjects(id: number): Observable<Grades> {
+  fetchSubjects(id: string): Observable<Grades> {
     return Observable.create((obs: Subscriber<Grades | string>) => {
       console.log("Id studenta u servisu: " + id);
       this.http.get<Grades[]>(`${env.url}/grades?studentId=${id}`).subscribe(res => {

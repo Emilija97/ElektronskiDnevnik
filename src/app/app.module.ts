@@ -22,9 +22,11 @@ import { SubjectsEffects } from "./store/effects/subjects.effects";
 import { StudentsEffects } from "./store/effects/students.effects";
 import { StudentsService } from "./services/students.service";
 import { SubjectService } from "./services/subject.service";
+import { MaterialBundleModule } from "./modules/material-bundle.module";
 
 import { MDBBootstrapModule } from "angular-bootstrap-md";
-import { BestStudentsComponent } from './components/best-students/best-students.component';
+import { MatToolbarModule } from "@angular/material";
+import { BestStudentsComponent } from "./components/best-students/best-students.component";
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { BestStudentsComponent } from './components/best-students/best-students.
     StoreDevtoolsModule.instrument({
       maxAge: 20
     }),
+    MaterialBundleModule,
     EffectsModule.forRoot([AuthEffects, SubjectsEffects, StudentsEffects])
   ],
   providers: [AuthService, StudentsService, SubjectService],

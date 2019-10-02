@@ -34,7 +34,7 @@ export class FetchSubjectsFailure implements Action {
 export class Delete implements Action {
   readonly type = SubjectActionTypes.DELETE;
 
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export class DeleteSuccess implements Action {

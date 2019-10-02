@@ -25,7 +25,7 @@ export class StudentsService {
     return this.http.get<User[]>(`${env.url}/users?role=student`);
   }
 
-  remove(id: number): Observable<User> {
+  remove(id: string): Observable<User> {
     return this.http.delete<User>(`${env.url}/users/${id}`);
   }
 
