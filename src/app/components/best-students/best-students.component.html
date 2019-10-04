@@ -1,16 +1,26 @@
-<div class="bestStudents">
-    <div>
-        <h3>Best students:</h3>
-    </div>
-    <div class="studentsData">
-        <h1>Students data</h1>
-        <div *ngFor="let student of bestStudents$ | async">
-            <div class="row">
-                <h3>{{ student.name }} {{ student.surname }}</h3>
-            </div>
-        </div>
-    </div>
-    <div>
-        <button (click)="onClick()">Back</button>
+<div class="py-5">
+    <div class="col-xl-6 col-lg-7 col-md-12 col-sm-12 mx-auto">
+        <mat-card class="rounded-0 mb-5">
+            <form class="form">
+                <mat-card-title>
+                    <div class="d-flex justify-content-center">
+                        Best students in school:
+                    </div>
+                </mat-card-title>
+
+                <mat-card-content>
+                    <ol>
+                        <li *ngFor="let student of bestStudents$ | async">
+                            <h4>{{ student.name }} {{ student.surname }}</h4>
+                        </li>
+                    </ol>
+                </mat-card-content>
+                <mat-card-actions class="d-flex flex-row-reverse ">
+                    <button mdbBtn type="button" color="pink" outline="true" mdbWavesEffect (click)="onClick()" class="rounded-0 btn-block">
+            Back
+          </button>
+                </mat-card-actions>
+            </form>
+        </mat-card>
     </div>
 </div>

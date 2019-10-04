@@ -1,0 +1,18 @@
+<div class="d-flex bd-highlight mb-3 flex-row">
+    <h3 class="mr-auto bd-highlight">{{ student.name }} {{ student.surname }}</h3>
+    <a routerLink="/editing/{{ student.id }}" class="bd-highlight"><button mdbBtn type="button" color="secondary" outline="true" mdbWavesEffect>
+      Edit
+    </button></a
+  >
+  <button
+    class="bd-highlight"
+    mdbBtn
+    type="button"
+    color="default"
+    outline="true"
+    mdbWavesEffect
+    (click)="onDelete()"
+  >
+    Delete
+  </button>
+</div>

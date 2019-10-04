@@ -1,51 +1,37 @@
 <div class="administrator">
     <div class="py-5 px-5" *ngIf="authObs$ | async as auth">
-        <!-- User logged in -->
         <div *ngIf="auth.isLoggedIn; then authenticated"></div>
         <ng-template #authenticated>
-            <div *ngIf="auth.user as user">
+            <div *ngIf="auth.user as user" class="col-xl-6 col-lg-7 col-md-12 col-sm-12 mx-auto">
                 <h1>Welcome, {{ user.name }} {{ user.surname }}</h1>
 
                 <p>email: {{ user.email }}</p>
                 <p>You are logged in: {{ auth.isLoggedIn }}</p>
             </div>
-            <mat-card-actions class="d-flex flex-row-reverse justify-content-between">
-                <button mat-flat-button color="primary" (click)="logOut()" class="rounded-0">
+            <mat-card-actions class="d-flex flex-row-reverse justify-content-center">
+                <button mdbBtn type="button" color="indigo" mdbWavesEffect (click)="logOut()">
           Log Out
         </button>
-                <button mat-flat-button color="primary" (click)="logNewStudent()" class="rounded-0">
+                <button mdbBtn type="button" color="indigo" mdbWavesEffect (click)="logNewStudent()">
           Log a new student
         </button>
-                <button mat-flat-button color="primary" (click)="seeBestStudents()" class="rounded-0">
+                <button mdbBtn type="button" color="indigo" mdbWavesEffect (click)="seeBestStudents()">
           See best students
         </button>
+                <button mdbBtn type="button" color="indigo" mdbWavesEffect (click)="seeAverageGradeInSchool()">
+          See average grade in school
+        </button>
             </mat-card-actions>
+            <div *ngIf="show" class="d-flex justify-content-center">
+                <h3>Average grade in school for all students is: {{ avgGradeInSchool }}</h3>
+            </div>
 
-            <div class="studentsData">
+            <div class="studentsData col-xl-6 col-lg-7 col-md-12 col-sm-12 mx-auto">
                 <h1>Students data</h1>
-                <div *ngFor="let user of students$ | async">
-                    <div class="row">
-                        <mat-card-actions class="d-flex flex-row-reverse justify-content-between">
-                            <h3>{{ user.name }} {{ user.surname }}</h3>
-                            <mat-card-actions class="d-flex flex-row-reverse justify-content-between">
-                                <a routerLink="/editing/{{ user.id }}"><button mat-flat-button color="accent" class="rounded-0">
-                    Edit
-                  </button></a
-                >
-                <button
-                  mat-flat-button
-                  color="primary"
-                  (click)="onDelete(user.id)"
-                  class="rounded-0"
-                >
-                  Delete
-                </button>
-              </mat-card-actions>
-            </mat-card-actions>
-          </div>
-          <hr />
-        </div>
-      </div>
-    </ng-template>
-  </div>
+                <div *ngFor="let stud of students$ | async">
+                    <app-admin-student [student]="stud"></app-admin-student>
+                </div>
+            </div>
+        </ng-template>
+    </div>
 </div>

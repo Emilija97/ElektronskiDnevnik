@@ -1,93 +1,130 @@
-<div class="editing">
+<mat-card class="px-5">
     <div *ngIf="grades">
-        <div>
+        <mat-card-title>
             <h3>Serbian Language:</h3>
-            <ul>
-                <li *ngFor="let grade of grades.serbianLanguage; let i = index">
-                    <input type="text" value="{{ grade }}" disabled="disabled" />
-                    <button (click)="deleteGradeFromArray('serbian', i)">Delete</button>
-                </li>
-            </ul>
-            <!-- <input [(ngModel)]="serbian" name="serbian" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
-            <!-- <input type="text" placeholder="Write new grade" #serbian required /> -->
-            <select #serbian required>
-        <option [value]="1">1</option>
-        <option [value]="2">2</option>
-        <option [value]="3">3</option>
-        <option [value]="4">4</option>
-        <option [value]="5">5</option>
-      </select>
-            <button (click)="onAdd('serbian', serbian.value)">
-        Add grade
-      </button>
-        </div>
-        <div>
+        </mat-card-title>
+        <mat-card-content>
+            <div class="d-flex flex-row">
+                <div class="d-flex px-3 flex-column">
+                    <div *ngFor="let grade of grades.serbianLanguage; let i = index" class="d-flex px-3 py-1">
+                        <input type="text" value="{{ grade }}" disabled="disabled" />
+                        <button mat-flat-button color="primary" (click)="deleteGradeFromArray('serbian', i)" class="rounded-0">
+              Delete
+            </button>
+                    </div>
+                </div>
+                <div class="d-inline-flex align-self-end flex-row">
+                    <select class="selectpicker" required #serbian>
+            <option [value]="1">1</option>
+            <option [value]="2">2</option>
+            <option [value]="3">3</option>
+            <option [value]="4">4</option>
+            <option [value]="5">5</option>
+          </select>
+                    <button mat-flat-button color="primary" (click)="onAdd('serbian', serbian.value)" class="rounded-0">
+            Add grade
+          </button>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-title>
             <h3>English Language:</h3>
-            <ul>
-                <li *ngFor="let grade of grades.englishLanguage; let i = index">
-                    <input type="text" value="{{ grade }}" disabled="disabled" />
-                    <button (click)="deleteGradeFromArray('english', i)">Delete</button>
-                </li>
-            </ul>
-            <!-- <input [(ngModel)]="english" name="english" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
-            <!-- <input type="text" placeholder="Write new grade" #english required /> -->
-            <select #english required>
-        <option [value]="1">1</option>
-        <option [value]="2">2</option>
-        <option [value]="3">3</option>
-        <option [value]="4">4</option>
-        <option [value]="5">5</option>
-      </select>
-            <button (click)="onAdd('english', english.value)">
-        Add grade
-      </button>
-        </div>
-        <div>
+        </mat-card-title>
+        <mat-card-content>
+            <div class="d-flex flex-row">
+                <div class="d-flex px-3 flex-column">
+                    <div *ngFor="let grade of grades.englishLanguage; let i = index" class="d-flex px-3 py-1">
+                        <input type="text" value="{{ grade }}" disabled="disabled" />
+                        <button mat-flat-button color="primary" (click)="deleteGradeFromArray('english', i)" class="rounded-0">
+              Delete
+            </button>
+                    </div>
+                </div>
+                <div class="d-inline-flex align-self-end flex-row">
+                    <select class="selectpicker" required #english>
+            <option [value]="1">1</option>
+            <option [value]="2">2</option>
+            <option [value]="3">3</option>
+            <option [value]="4">4</option>
+            <option [value]="5">5</option>
+          </select>
+                    <button mat-flat-button color="primary" (click)="onAdd('english', english.value)" class="rounded-0">
+            Add grade
+          </button>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-title>
             <h3>Math:</h3>
-            <ul>
-                <li *ngFor="let grade of grades.math; let i = index">
-                    <input type="text" value="{{ grade }}" disabled="disabled" />
-                    <button (click)="deleteGradeFromArray('math', i)">Delete</button>
-                </li>
-            </ul>
-            <!-- <input [(ngModel)]="math" name="math" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
-            <!-- <input type="text" placeholder="Write new grade" #math required /> -->
-            <select #math required>
-        <option [value]="1">1</option>
-        <option [value]="2">2</option>
-        <option [value]="3">3</option>
-        <option [value]="4">4</option>
-        <option [value]="5">5</option>
-      </select>
-            <button (click)="onAdd('math', math.value)">Add grade</button>
-        </div>
-        <div>
+        </mat-card-title>
+        <mat-card-content>
+            <div class="d-flex flex-row">
+                <div class="d-flex px-3 flex-column">
+                    <div *ngFor="let grade of grades.math; let i = index" class="d-flex px-3 py-1">
+                        <input type="text" value="{{ grade }}" disabled="disabled" />
+                        <button mat-flat-button color="primary" (click)="deleteGradeFromArray('math', i)" class="rounded-0">
+              Delete
+            </button>
+                    </div>
+                </div>
+                <div class="d-inline-flex align-self-end flex-row">
+                    <select class="selectpicker" required #math>
+            <option [value]="1">1</option>
+            <option [value]="2">2</option>
+            <option [value]="3">3</option>
+            <option [value]="4">4</option>
+            <option [value]="5">5</option>
+          </select>
+                    <button mat-flat-button color="primary" (click)="onAdd('math', math.value)" class="rounded-0">
+            Add grade
+          </button>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-title>
             <h3>Biology:</h3>
-            <ul>
-                <li *ngFor="let grade of grades.biology; let i = index">
-                    <input type="text" value="{{ grade }}" disabled="disabled" />
-                    <button (click)="deleteGradeFromArray('biology', i)">Delete</button>
+        </mat-card-title>
+        <mat-card-content>
+            <div class="d-flex flex-row">
+                <div class="d-flex px-3 flex-column">
+                    <div *ngFor="let grade of grades.biology; let i = index" class="d-flex px-3 py-1">
+                        <input type="text" value="{{ grade }}" disabled="disabled" />
+                        <button mat-flat-button color="primary" (click)="deleteGradeFromArray('biology', i)" class="rounded-0">
+              Delete
+            </button>
+                    </div>
+                </div>
+                <div class="d-inline-flex align-self-end flex-row">
+                    <select class="selectpicker" required #biology>
+            <option [value]="1">1</option>
+            <option [value]="2">2</option>
+            <option [value]="3">3</option>
+            <option [value]="4">4</option>
+            <option [value]="5">5</option>
+          </select>
+                    <button mat-flat-button color="primary" (click)="onAdd('biology', biology.value)" class="rounded-0">
+            Add grade
+          </button>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-title>
+            <h4>Average grade for each subject</h4>
+        </mat-card-title>
+
+        <mat-card-content>
+            <div *ngIf="averageGrades">
+                <li *ngFor="let sub of nameOfSub; let i = index">
+                    <label>Average grade for {{ sub }}: {{ averageGrades[i] }}</label>
                 </li>
-            </ul>
-            <!-- <input [(ngModel)]="biology" name="biology" #ctrl="ngModel" required type="text" placeholder="Write new grade"> -->
-            <!-- <input type="text" placeholder="Write new grade" #biology required /> -->
-            <select #biology required>
-        <option [value]="1">1</option>
-        <option [value]="2">2</option>
-        <option [value]="3">3</option>
-        <option [value]="4">4</option>
-        <option [value]="5">5</option>
-      </select>
-            <button (click)="onAdd('biology', biology.value)">
-        Add grade
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions class="d-flex flex ">
+            <button class="bd-highlight" mdbBtn type="button" color="pink" outline="true" mdbWavesEffect (click)="onBack()">
+        Back
       </button>
-        </div>
-        <div *ngIf="averageGrades">
-            <li *ngFor="let sub of nameOfSub; let i = index">
-                <!-- <li *ngFor="let val of averageGrades;"> -->
-                <label>Average grade for subject {{ sub }}: {{ averageGrades[i] }}</label>
-            </li>
-        </div>
-        <button (click)="onClick()">Back</button>
+        </mat-card-actions>
     </div>
-</div>
+</mat-card>

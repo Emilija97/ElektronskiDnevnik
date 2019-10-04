@@ -36,4 +36,8 @@ export class StudentsService {
   getBestStudents(): Observable<User[]> {
     return this.http.get<User[]>(`${env.url}/users?role=student&averageGrade=5.00`);
   }
+
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${env.url}/users?id=${id}`);
+  }
 }

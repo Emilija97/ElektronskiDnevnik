@@ -23,6 +23,9 @@ import { AuthState } from "src/app/store/reducers/auth.reducer";
 export class AdministratorComponent implements OnInit {
   public students$: Observable<User[]>;
   authObs$: Observable<AuthState>;
+  public studs: User[];
+  public avgGradeInSchool: string = "";
+  public show: boolean = false;
 
   grades: Grades = new Grades();
   constructor(
@@ -38,7 +41,6 @@ export class AdministratorComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new Fetch());
     this.students$ = this.store.select(fromStudent.selectAllStudents);
-    console.log(this.students$[0]);
   }
 
   logOut() {
@@ -55,11 +57,16 @@ export class AdministratorComponent implements OnInit {
     this.router.navigate(["/best-students"]);
   }
 
-  onDelete(id: string) {
-    console.log("Delete id: " + id);
-    this.store.dispatch(new Remove(id));
-    this.store.dispatch(new Delete(id));
-    this.store.dispatch(new Fetch());
-    this.students$ = this.store.select(fromStudent.selectAllStudents);
+  seeAverageGradeInSchool() {
+    let sum: number = 0;
+    this.students$.subscribe(stud => {
+      this.studs = stud;
+    });
+    this.studs.forEach(student => {
+      sum += +student.averageGrade;
+    });
+    this.show = true;
+    this.avgGradeInSchool = (sum / this.studs.length).toFixed(2);
+    console.log(sum / this.studs.length);
   }
 }

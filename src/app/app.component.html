@@ -2,25 +2,23 @@
     <mat-toolbar color="primary">
         <mat-toolbar-row>
             <button routerLink="/" mat-button class="rounded-0 mr-1" style="font-size: 120%">
-          School portal
-        </button>
+        School portal
+      </button>
             <div class="d-flex w-100 justify-content-end" *ngIf="!auth.isLoggedIn">
                 <button mat-flat-button class="rounded-0 mr-1" routerLink="/login">Login</button>
-                <button mat-flat-button color="accent" class="rounded-0 float-right" routerLink="/signup">Register</button>
+                <button mat-flat-button color="accent" class="rounded-0 float-right" routerLink="/signup">
+          Register
+        </button>
             </div>
             <div class="d-flex w-100 justify-content-end align-items-center" *ngIf="auth.isLoggedIn">
-                <small class="mt-1">{{auth.user.username}}</small>
-                <button mat-icon-button class="rounded-0 mr-1" routerLink="/administrator">
-                <mat-icon>account_circle</mat-icon>
-                </button>
-                <!-- <button mat-icon-button class="rounded-0 mr-1" routerLink="/new"> -->
-                <!-- <mat-icon>add_circle</mat-icon>
-                </button>-->
+                <small class="mt-1">{{ auth.user.username }}</small>
+                <button mat-icon-button class="rounded-0 mr-1" routerLink="/{{ auth.user.role }}">
+          <mat-icon>account_circle</mat-icon>
+        </button>
                 <button mat-icon-button class="rounded-0 mr-1" (click)="logout()">
-                <mat-icon>power_settings_new</mat-icon>
-                </button>
+          <mat-icon>power_settings_new</mat-icon>
+        </button>
             </div>
-
         </mat-toolbar-row>
     </mat-toolbar>
 

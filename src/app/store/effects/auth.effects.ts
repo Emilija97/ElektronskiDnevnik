@@ -142,7 +142,6 @@ export class AuthEffects {
     ofType(AuthActionTypes.SIGNUP_SUCCESS),
     tap(action => {
       console.log(action);
-      localStorage.setItem("token", action.payload.id);
       this.router.navigate([""]);
     })
   );

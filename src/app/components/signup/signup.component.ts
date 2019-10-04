@@ -123,7 +123,7 @@ export class SignupComponent implements OnInit {
       this.store.dispatch(new SignUp(payload));
     } else {
       console.log("Pogresan kod");
-      this.location.back();
+      alert("Your code is invalid");
     }
   };
 }

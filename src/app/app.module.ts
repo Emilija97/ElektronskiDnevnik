@@ -27,6 +27,7 @@ import { MaterialBundleModule } from "./modules/material-bundle.module";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { MatToolbarModule } from "@angular/material";
 import { BestStudentsComponent } from "./components/best-students/best-students.component";
+import { AdminStudentComponent } from './components/admin-student/admin-student.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { BestStudentsComponent } from "./components/best-students/best-students.
     HomepageComponent,
     SignupStudComponent,
     EditingComponent,
-    BestStudentsComponent
+    BestStudentsComponent,
+    AdminStudentComponent
   ],
   imports: [
     FormsModule,

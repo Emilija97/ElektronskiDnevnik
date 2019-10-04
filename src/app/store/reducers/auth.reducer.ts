@@ -50,7 +50,7 @@ export function authReducer(state: AuthState = initialState, action: All): AuthS
       action.payload["password"] = undefined;
       return {
         ...state,
-        isLoggedIn: true,
+        isLoggedIn: false,
         user: action.payload,
         errorMessage: "",
         showInvalid: false

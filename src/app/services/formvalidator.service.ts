@@ -17,7 +17,6 @@ export class FormvalidatorService {
         ? { passwordMismatch: true }
         : null;
     confirmPassword.setErrors(ret);
-    console.log(ret);
     return ret;
   }
 }

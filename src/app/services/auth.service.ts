@@ -56,9 +56,6 @@ export class AuthService {
       this.http.get<User[]>(`${env.url}/users?email=${user.email}`).subscribe(res => {
         if (!res || res.length == 0) {
           this.http.post<User>(`${env.url}/users`, user).subscribe(res => {
-            if (user.role == "administrator") {
-              this.user = user;
-            }
             obs.next(res);
             obs.complete();
           });

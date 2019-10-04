@@ -18,8 +18,6 @@ import { Observable, pipe } from "rxjs";
   styleUrls: ["./editing.component.scss"]
 })
 export class EditingComponent implements OnInit {
-  // public gradesObs: Observable<SubjectState>;
-  // public stateProba: SubjectState;
   public grades: Grades;
   public studId: string;
   public student: User;
@@ -38,11 +36,8 @@ export class EditingComponent implements OnInit {
     private subService: SubjectService,
     private studService: StudentsService,
     private store: Store<AppState>,
-    private location: Location,
-    private http: HttpClient
-  ) {
-    // this.gradesObs = store.select("subjects");
-  }
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -58,7 +53,7 @@ export class EditingComponent implements OnInit {
           console.log(this.id);
           this.calculateAverageGrades();
         });
-        this.http.get<User>(`${env.url}/users?id=${this.studId}`).subscribe(user => {
+        this.studService.getUserById(this.studId).subscribe(user => {
           this.student = user[0];
           this.averageGrade = user.averageGrade;
         });
@@ -66,7 +61,7 @@ export class EditingComponent implements OnInit {
     });
   }
 
-  onClick() {
+  onBack() {
     this.prepareStudentForUpdate();
     this.location.back();
   }
@@ -122,37 +117,26 @@ export class EditingComponent implements OnInit {
   }
 
   deleteGradeFromArray(subject: string, index: number) {
-    //studId ti treba isto da nadjes tog lika u bazi
-    let tmp;
     switch (subject) {
       case "serbian": {
-        tmp = this.grades.serbianLanguage.splice(index, 1);
-        console.log(this.grades.serbianLanguage.splice(index, 1));
+        this.grades.serbianLanguage.splice(index, 1);
         break;
       }
       case "english": {
-        let tmp = this.grades.englishLanguage[index];
         this.grades.englishLanguage.splice(index, 1);
-        console.log(tmp);
-        console.log(this.grades.englishLanguage);
         break;
       }
       case "math": {
-        let tmp = this.grades.math[index];
         this.grades.math.splice(index, 1);
-        console.log(tmp);
         break;
       }
       default: {
-        let tmp = this.grades.biology[index];
         this.grades.biology.splice(index, 1);
-        console.log(tmp);
       }
     }
     this.subService.changeGrade(this.grades).subscribe(grades => {
-      console.log("Deleted grade " + tmp + " from " + subject);
+      console.log("Deleted grade from " + subject);
     });
     this.calculateAverageGrades();
-    // this.prepareStudentForUpdate();
   }
 }

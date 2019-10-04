@@ -5,5 +5,6 @@ import { subjectReducer } from "./reducers/subjects.reducer";
 
 export const reducers: ActionReducerMap<any> = {
   auth: authReducer,
-  students: studentsReducer
+  students: studentsReducer,
+  grades: subjectReducer
 };

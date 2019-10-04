@@ -1,21 +1,11 @@
-<div class="homePage">
-    <div class="col-md-4">
+<div class="homePage py-5 col-xl-6 col-lg-7 col-md-12 col-sm-12 mx-auto">
+    <div>
         <h1>Welcome to the school portal</h1>
-        <hr />
-        <br />
-        <div class="log">
-            <h4>You can log like administrator or student:</h4>
-            <br />
-            <a [routerLink]="['/login']" class="btn btn-primary"><button class="navigation">Log in</button></a
-      >
-      <hr />
-      <h4>You can make new account only like administrator:</h4>
-      <br />
-      <a [routerLink]="['/signup']" class="btn btn-primary"
-        ><button class="navigation">Sign up</button></a
-      >
-      <hr />
-      <br />
     </div>
-  </div>
+    <form>
+        <i><h3>You can log in like a student or an administrator.</h3>
+      <h3>You can register only like an administrator if you have affirmation code.</h3>
+      <h4>This portal helps in following student's achievement.</h4></i
+    >
+  </form>
 </div>
